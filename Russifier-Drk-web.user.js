@@ -6,12 +6,14 @@
 // @author          Xanix
 // @match           https://www.darmoshark.cc/*
 // @icon            https://www.darmoshark.cc/favicon.ico
-// @grant           none
+// @grant           GM_getValue
+// @grant           GM_setValue
+// @grant           GM_xmlhttpRequest
 // @run-at          document-start
 // @homepage        https://russifier-drk.ru/
 // @supportURL      https://github.com/Xanixsl/Russifier-Drk-WEB/issues
-// @updateURL       https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/Russifier-Drk-web.js
-// @downloadURL     https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/Russifier-Drk-web.js
+// @updateURL       https://github.com/Xanixsl/Russifier-Drk-WEB/raw/refs/heads/main/Russifier-Drk-web.user.js
+// @downloadURL     https://github.com/Xanixsl/Russifier-Drk-WEB/raw/refs/heads/main/Russifier-Drk-web.user.js
 // @license         MIT
 // @licenseURL      https://opensource.org/licenses/MIT
 // @contributionURL https://github.com/Xanixsl/Russifier-Drk-WEB/discussions
@@ -359,4 +361,5 @@
     }
 
 })();
+
 
