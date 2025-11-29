@@ -1,14 +1,20 @@
 // ==UserScript==
-// @name         Russifier Drk WEB v1.0.0-pre (minimal toggle)
-// @namespace    https://github.com/Xanixsl/Russifier-Drk-WEB
-// @version      1.0.0-pre
-// @description  Полный русификатор интерфейса Darmoshark.cc для тёмных тем — простой переключатель перевода
-// @author       Xanix
-// @match        https://www.darmoshark.cc/*
-// @icon         https://www.darmoshark.cc/favicon.ico
-// @grant        none
-// @run-at       document-start
-// @license      MIT
+// @name            Russifier Drk WEB
+// @namespace       https://github.com/Xanixsl/Russifier-Drk-WEB
+// @version         1.0.1
+// @description     Полный русификатор интерфейса Darmoshark.cc для тёмных тем. Переключатель перевода «вкл/выкл» с загрузкой внешних словарей и стилей.
+// @author          Xanix
+// @match           https://www.darmoshark.cc/*
+// @icon            https://www.darmoshark.cc/favicon.ico
+// @grant           none
+// @run-at          document-start
+// @homepage        https://russifier-drk.ru/
+// @supportURL      https://github.com/Xanixsl/Russifier-Drk-WEB/issues
+// @updateURL       https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/Russifier-Drk-web.js
+// @downloadURL     https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/Russifier-Drk-web.js
+// @license         MIT
+// @licenseURL      https://opensource.org/licenses/MIT
+// @contributionURL https://github.com/Xanixsl/Russifier-Drk-WEB/discussions
 // ==/UserScript==
 
 (function() {
@@ -353,3 +359,4 @@
     }
 
 })();
+
