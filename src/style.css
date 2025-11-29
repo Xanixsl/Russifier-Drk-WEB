@@ -1,0 +1,280 @@
+/* ==================== ANIMATIONS ==================== */
+@keyframes russifier-slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes russifier-pulse {
+    0%, 100% {
+        box-shadow: 0 4px 20px rgba(33, 150, 243, 0.5), 0 0 0 0 rgba(33, 150, 243, 0.2);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(33, 150, 243, 0.5), 0 0 0 10px rgba(33, 150, 243, 0);
+    }
+}
+
+@keyframes russifier-slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== BUTTON STYLES ==================== */
+#darmoshark-btn-main {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(33, 150, 243, 0.5), 0 0 0 0 rgba(33, 150, 243, 0.2);
+    z-index: 99999;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: bold;
+    user-select: none;
+    animation: russifier-pulse 2s infinite;
+    border: none;
+    padding: 0;
+}
+
+#darmoshark-btn-main:hover {
+    transform: scale(1.15) translateY(-5px);
+    box-shadow: 0 8px 30px rgba(33, 150, 243, 0.7), 0 0 0 0 rgba(33, 150, 243, 0.2);
+}
+
+#darmoshark-btn-main:active {
+    transform: scale(1.1) translateY(-3px);
+}
+
+/* ==================== MENU STYLES ==================== */
+.darmoshark-menu {
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    width: 380px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    z-index: 99998;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    animation: russifier-slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.darmoshark-menu-header {
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    color: white;
+    padding: 24px 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+.darmoshark-menu-content {
+    padding: 20px;
+    max-height: 520px;
+    overflow-y: auto;
+}
+
+.darmoshark-menu-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.darmoshark-menu-content::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+.darmoshark-menu-content::-webkit-scrollbar-thumb {
+    background: #2196F3;
+    border-radius: 3px;
+}
+
+.darmoshark-lang-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 14px;
+    margin-top: 14px;
+    padding: 0;
+    border-bottom: 2px solid #e8e8e8;
+    display: block;
+}
+
+.darmoshark-lang-item {
+    padding: 15px 16px;
+    margin: 8px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 2px solid #e0e0e0;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #f9f9f9;
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.darmoshark-lang-item:hover {
+    background-color: #f0f7ff;
+    border-color: #2196F3;
+    transform: translateX(6px);
+}
+
+.darmoshark-lang-item.active {
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    color: white;
+    border-color: #1976D2;
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.35);
+}
+
+.darmoshark-menu-button {
+    width: 100%;
+    padding: 14px 16px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    transition: all 0.25s ease;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.darmoshark-btn-export {
+    background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+    color: white;
+}
+
+.darmoshark-btn-export:hover {
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    transform: translateY(-2px);
+}
+
+.darmoshark-btn-check {
+    background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+    color: white;
+}
+
+.darmoshark-btn-check:hover {
+    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.darmoshark-btn-stats {
+    background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);
+    color: white;
+}
+
+.darmoshark-btn-stats:hover {
+    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+    transform: translateY(-2px);
+}
+
+.darmoshark-status-box {
+    background-color: #f0f7ff;
+    border-left: 4px solid #2196F3;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #1565C0;
+    margin-bottom: 14px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.darmoshark-menu-footer {
+    border-top: 1px solid #e0e0e0;
+    padding: 14px 18px;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+    background-color: #fafafa;
+}
+
+.darmoshark-version {
+    font-weight: 700;
+    color: #2196F3;
+}
+
+/* ==================== DARK THEME ==================== */
+#darmoshark-menu-container .darmoshark-menu {
+    background: #1e1e2e !important;
+    color: #e0e0e0 !important;
+}
+
+#darmoshark-menu-container .darmoshark-menu-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+    color: #ffffff !important;
+}
+
+#darmoshark-menu-container .darmoshark-menu-content {
+    background: #1e1e2e !important;
+    color: #e0e0e0 !important;
+}
+
+#darmoshark-menu-container .darmoshark-lang-label {
+    color: #b0b0b0 !important;
+    border-bottom-color: #333 !important;
+}
+
+#darmoshark-menu-container .darmoshark-lang-item {
+    background-color: #2a2a3e !important;
+    border-color: #404050 !important;
+    color: #e0e0e0 !important;
+}
+
+#darmoshark-menu-container .darmoshark-lang-item:hover {
+    background-color: #333a50 !important;
+    border-color: #2196F3 !important;
+}
+
+#darmoshark-menu-container .darmoshark-lang-item.active {
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%) !important;
+    color: white !important;
+}
+
+#darmoshark-menu-container .darmoshark-menu-footer {
+    background-color: #161620 !important;
+    border-top-color: #333 !important;
+    color: #666 !important;
+}
+
+#darmoshark-menu-container .darmoshark-status-box {
+    background-color: #2a3a4e !important;
+    border-left-color: #2196F3 !important;
+    color: #90caf9 !important;
+}
+
+#darmoshark-btn-main {
+    background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%) !important;
+    box-shadow: 0 4px 20px rgba(33, 150, 243, 0.3), 0 0 0 0 rgba(33, 150, 243, 0.1) !important;
+}
+
+/* ==================== UTILITY ==================== */
+.russifier-ui {
+    all: revert;
+}
