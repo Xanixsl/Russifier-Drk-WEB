@@ -173,5 +173,22 @@
   "Motion Sync": "Синхр. движения",
   "【Motion Sync】": "【Синхр. движения】",
   "Succeed": "Успешно",
-  "Click the connect device button below and select the receiver device.": "Нажмите кнопку подключения ниже и выберите приёмник."
+  "Click the connect device button below and select the receiver device.": "Нажмите кнопку подключения ниже и выберите приёмник.",
+  "Do not pair the mouse repeatedly.": "Не подключайте мышь повторно.",
+  "Event Properties": "Свойства события",
+  "Insert Mouse Event": "Вставить событие мыши",
+  "Event Value": "Значение события",
+  "Event Status": "Статус события",
+  "Press Down": "Нажатие",
+  "Release": "Отпускание",
+  "Mouse Move": "Движение мыши",
+  "X:": "X:",
+  "Y:": "Y:",
+  "Insert Keyboard Event": "Вставить событие клавиатуры",
+  "Insert Event Delay": "Вставить задержку",
+  "配置01": "Конфиг 01",
+  "配置02": "Конфиг 02",
+  "配置03": "Конфиг 03",
+  "配置04": "Конфиг 04",
+  "配置05": "Конфиг 05"
 }
