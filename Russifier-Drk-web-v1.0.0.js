@@ -1,17 +1,14 @@
 // ==UserScript==
-// @name        Darmoshark.cc Russian Translator Pro
-// @namespace   Violentmonkey Scripts
-// @match       https://www.darmoshark.cc/*
-// @grant       GM_getValue
-// @grant       GM_setValue
-// @grant       GM_xmlhttpRequest
-// @grant       GM_addStyle
-// @connect     raw.githubusercontent.com
-// @connect     api.github.com
-// @version     4.0
-// @author      Darmoshark Community
-// @description Полный перевод darmoshark.cc на русский язык с облачным обновлением и расширенным функционалом
-// @icon        https://www.darmoshark.cc/favicon.ico
+// @name         Russifier Drk WEB v1.0.0-pre (minimal toggle)
+// @namespace    https://github.com/Xanixsl/Russifier-Drk-WEB
+// @version      1.0.0-pre
+// @description  Полный русификатор интерфейса Darmoshark.cc для тёмных тем — простой переключатель перевода
+// @author       Xanix
+// @match        https://www.darmoshark.cc/*
+// @icon         https://www.darmoshark.cc/favicon.ico
+// @grant        none
+// @run-at       document-start
+// @license      MIT
 // ==/UserScript==
 
 (function() {
@@ -19,51 +16,87 @@
 
     // ==================== КОНФИГУРАЦИЯ ====================
     const CONFIG = {
-        VERSION: '4.0.0',
+        VERSION: '1.0.0-pre',
         TARGET_SITE: 'darmoshark.cc',
         STORAGE_KEY: 'darmoshark-translator-lang',
-        HISTORY_KEY: 'darmoshark-translator-history',
-        CACHE_KEY: 'darmoshark-translator-cache',
-        UPDATE_CHECK_KEY: 'darmoshark-translator-update-check',
-        GITHUB_REPO: 'Xanixsl/darmoshark-translator',
-        GITHUB_RAW_URL: 'https://raw.githubusercontent.com/Xanixsl/darmoshark-translator/main/',
-        GITHUB_API_URL: 'https://api.github.com/repos/Xanixsl/darmoshark-translator/releases/latest',
-        SCRIPT_FILE: 'darmoshark-translator-v4.js',
+        STORAGE_TOGGLE_KEY: 'darmoshark-translator-enabled',
         DEBUG_MODE: true,
-        AUTO_UPDATE_CHECK: true,
-        UPDATE_CHECK_INTERVAL: 3600000, // 1 час
-        CACHE_TRANSLATIONS: true,
-        ENABLE_STATS: true
+        EXTERNAL_CSS: 'https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/main/src/style.css',
+        EXTERNAL_RU_JSON: 'https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/main/lang/ru.json'
     };
 
     let currentLanguage = 'English';
     let translatedTexts = new Map();
+    let isEnabled = true; // по умолчанию включён
+
+    // ==================== ЗАГРУЗКА ВНЕШНИХ РЕСУРСОВ ====================
+    async function loadExternalResources() {
+        try {
+            if (CONFIG.EXTERNAL_CSS) {
+                const res = await fetch(CONFIG.EXTERNAL_CSS);
+                if (res.ok) {
+                    const css = await res.text();
+                    const style = document.createElement('style');
+                    style.id = 'darmoshark-external-style';
+                    style.textContent = css;
+                    document.head.appendChild(style);
+                }
+            }
+
+            if (CONFIG.EXTERNAL_RU_JSON) {
+                const r = await fetch(CONFIG.EXTERNAL_RU_JSON);
+                if (r.ok) {
+                    const ru = await r.json();
+                    if (ru && typeof ru === 'object') {
+                        translations['Русский'] = Object.assign({}, translations['Русский'] || {}, ru);
+                    }
+                }
+            }
+        } catch (e) {
+            Logger.error('Ошибка при загрузке внешних ресурсов', e);
+        }
+    }
+
+    function detectDarkTheme() {
+        try {
+            if (document.querySelector('.theme-switch.dark')) return true;
+            if (document.body.classList.contains('dark')) return true;
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return true;
+        } catch (e) { /* ignore */ }
+        return false;
+    }
+
+    function updatePlanetColor(btn) {
+        const dark = detectDarkTheme();
+        btn.style.color = dark ? '#fff' : '#000';
+        btn.style.background = 'none';
+        btn.style.border = 'none';
+        btn.style.boxShadow = 'none';
+    }
+
     let mutationObserver = null;
     let translationStats = { total: 0, successful: 0, failed: 0 };
-    let isMenuOpen = false;
 
     // ==================== ЛОГИРОВАНИЕ ====================
     const Logger = {
         log: (msg, data = null) => {
-            if (CONFIG.DEBUG_MODE) {
-                const time = new Date().toLocaleTimeString('ru-RU');
-                console.log(`%c[${time}] [DarmoTranslator] ${msg}`, 'color: #2196F3; font-weight: bold;', data || '');
-            }
+            if (!CONFIG.DEBUG_MODE) return;
+            const time = new Date().toLocaleTimeString('ru-RU');
+            console.log(`%c[${time}] [DarmoTranslator] ${msg}`,'color:#2196F3;font-weight:bold;',data||'');
         },
         success: (msg, data = null) => {
             const time = new Date().toLocaleTimeString('ru-RU');
-            console.log(`%c[${time}] ✓ ${msg}`, 'color: #4CAF50; font-weight: bold; font-size: 12px;', data || '');
+            console.log(`%c[${time}] ✓ ${msg}`,'color:#4CAF50;font-weight:bold;font-size:12px;',data||'');
         },
         warn: (msg, data = null) => {
-            console.warn(`%c[DarmoTranslator] ⚠️ ${msg}`, 'color: #FF9800; font-weight: bold;', data || '');
+            console.warn(`%c[DarmoTranslator] ⚠️ ${msg}`,'color:#FF9800;font-weight:bold;',data||'');
         },
         error: (msg, data = null) => {
-            console.error(`%c[DarmoTranslator] ❌ ${msg}`, 'color: #F44336; font-weight: bold;', data || '');
+            console.error(`%c[DarmoTranslator] ❌ ${msg}`,'color:#F44336;font-weight:bold;',data||'');
         },
         info: (msg, data = null) => {
-            if (CONFIG.DEBUG_MODE) {
-                console.info(`%c[DarmoTranslator] ℹ️ ${msg}`, 'color: #00BCD4; font-weight: bold;', data || '');
-            }
+            if (!CONFIG.DEBUG_MODE) return;
+            console.info(`%c[DarmoTranslator] ℹ️ ${msg}`,'color:#00BCD4;font-weight:bold;',data||'');
         }
     };
 
@@ -99,7 +132,8 @@
             "Open Homepage": "Open Homepage", "Mail": "Mail", "Refresh": "Refresh", "Switch Application": "Switch Application", "Copy": "Copy",
             "Cut": "Cut", "Paste": "Paste", "Scroll Right": "Scroll Right", "ScrollLeft": "Scroll Left", "Double-Click Left Button": "Double-Click Left Button",
             "Light Effect Switching": "Light Effect Switching", "Speed Switch": "Speed Switch", "Color Switch": "Color Switch", "Brightness Up": "Brightness Up",
-            "Brightness Down": "Brightness Down", "Rename": "Rename", "Русский": "Russian", "Copyright © 2025.MySite Ltd.All Rights Reserved.": "Copyright © 2025. All Rights Reserved."
+            "Brightness Down": "Brightness Down", "Rename": "Rename", "Русский": "Russian",
+            "Copyright © 2025.MySite Ltd.All Rights Reserved.": "Copyright © 2025. All Rights Reserved. "
         },
         Русский: {
             "Home": "Главная", "Key": "Кнопки", "Pointer": "Указатель", "Macro": "Макросы", "Function": "Функции", "System": "Система",
@@ -111,10 +145,10 @@
             "Scroll Down": "Колесико вниз", "Key2": "2", "Basic Mouse Function": "Базовые функции мыши", "Sensitivity": "Чувствительность",
             "Multimedia Buttons": "Мультимедиа кнопки", "Macro Key": "Макро кнопка", "System Shortcut Key": "Системная горячая клавиша",
             "Lighting Switch": "Переключатель подсветки", "Keyboard Combination Key": "Комбинация клавиш", "Settings": "Настройки",
-            "Gaming Enhancement Key": "Клавиша для игровых улучшений", "Disable Button": "Отключить кнопку", "Number of DPI Levels": "Количество уровней DPI",
-            "X-Y Setting": "Настройка X-Y", "Confirm": "Подтвердить", "Report Rate": "Частота опроса", "125HZ": "125 Гц", "500HZ": "500 Гц",
+            "Gaming Enhancement Key": "Клавиша для игровых улучшений", "Disable Button": "Отключить кнопку", "Number of DPI Levels": "Слои DPI",
+            "X-Y Setting": "Настройка X-Y", "Confirm": "Да", "Report Rate": "Частота опроса", "125HZ": "125 Гц", "500HZ": "500 Гц",
             "1000HZ": "1000 Гц", "2000HZ": "2000 Гц", "4000HZ": "4000 Гц", "8000HZ": "8000 Гц", "Macro Custom Editor": "Редактор макросов",
-            "Macro Name": "Имя макроса", "Custom 1": "Пользовательский 1", "Create": "Создать", "Event List": "Список событий", "Index": "Индекс",
+            "Macro Name": "Имя макроса", "Custom 1": "Пользовательский 1", "Create": "Создать", "Event List": "Список событий", "Index": "индекс",
             "Event": "Событие", "Value": "Значение", "Insert": "Вставить", "Delete": "Удалить", "Start REC": "Начать", "Stop REC": "Остановить",
             "Time Delay": "Временная задержка", "No Delay": "Без задержки", "Record Delay": "Задержка записи", "Uniform Delay": "Равномерная задержка",
             "Loops Setting": "Настройка циклов", "Loop Until Key Release": "Цикл до отпускания клавиши", "Loop Until Any Key Press": "Цикл до любого нажатия",
@@ -123,10 +157,10 @@
             "Angle Snap": "Привязка угла", "Motion SyncOn": "Синхронизация движения", "Scroll Direction Setting": "Настройка направления прокрутки",
             "Reverse": "Назад", "Angle Adjustment": "Регулировка угла", "Esports Mode": "Режим киберспорта", "On": "Вкл", "Off": "Выкл",
             "Overclocked Gaming Mode": "Режим разгона для игр", "Debounce Time": "Время подавления помех", "Sleep Time Setting": "Настройка времени сна",
-            "40Minute": "40 минут", "System Settings": "Параметры системы", "Mouse Firmware Version": "Версия прошивки мыши",
-            "Receiver Firmware Version": "Версия прошивки приёмника", "Driver Version": "Версия драйвера", "Factory Reset Setting": "Сброс на заводские установки",
+            "40Minute": "40 минут", "System Settings": "Параметры системы", "Mouse Firmware Version": "Версия мышки",
+            "Receiver Firmware Version": "Версия донгла", "Driver Version": "Версия драйвера", "Factory Reset Setting": "Сброс до заводских настроек",
             "Pairing Settings": "Параметры сопряжения", "Go to Pairing": "Перейти к сопряжению", "Left Click Lock": "Блокировка левой кнопки",
-            "Lock": "Заблокировать", "Unlock": "Разблокировать", "Connect": "Подключиться", "Volume+": "Громкость +", "Volume-": "Громкость -",
+            "Lock": "Вкл.", "Unlock": "Выкл.", "Connect": "Подключиться", "Volume+": "Громкость +", "Volume-": "Громкость -",
             "Mute": "Отключить звук", "Play/Pause": "Воспроизведение/пауза", "Previous": "Предыдущий трек", "Next": "Следующий трек",
             "DPI Loop": "Цикл DPI", "DPI +": "DPI +", "DPI -": "DPI -", "Brightness+": "Яркость +", "Brightness-": "Яркость -",
             "Calculator": "Калькулятор", "My Computer": "Мой компьютер", "Open Homepage": "Открыть домашнюю страницу", "Mail": "Почта",
@@ -134,108 +168,7 @@
             "Scroll Right": "Прокрутка вправо", "ScrollLeft": "Прокрутка влево", "Double-Click Left Button": "Двойной клик левой кнопкой",
             "Light Effect Switching": "Переключение светового эффекта", "Speed Switch": "Переключение скорости", "Color Switch": "Переключение цвета",
             "Brightness Up": "Яркость выше", "Brightness Down": "Яркость ниже", "Rename": "Переименовать", "Русский": "Русский",
-            "Copyright © 2025.MySite Ltd.All Rights Reserved.": "© 2025. Все права защищены.",
-            "Mouse lift-off distance, Low: 0.7mm, Medium: 1mm, High: 2mm": "Высота отрыва мыши: низкая 0.7 мм, средняя 1 мм, высокая 2 мм",
-            "The sensor will have a ripple effect when the DPI value is greater than 9000, improve this ripple, ignore this setting when DPI is less than 9000": "Датчик будет иметь эффект пульсации при значении DPI больше 9000, улучшите эту пульсацию, игнорируйте эту настройку при DPI менее 9000",
-            "Correct offset at a certain angle to a straight line.": "Исправить смещение под определённым углом на прямую линию.",
-            "Accuracy of sensor refresh cycle and discrete nature of sensor movement data.": "Точность цикла обновления датчика и дискретный характер данных движения датчика.",
-            "In eSports mode, both the sensor and the main controller enter the most active state for faster response, but this increases power consumption and reduces battery life. (Note: eSports mode is automatically activated when the polling rate exceeds 2KHz.)": "В режиме киберспорта датчик и главный контроллер переходят в наиболее активное состояние для более быстрого отклика, но это увеличивает потребление энергии и сокращает время работы батареи.",
-            "This mode increases power consumption significantly. Sensor responsiveness greatly improves, battery life is reduced.": "Этот режим значительно увеличивает потребление энергии. Чувствительность датчика значительно улучшается, время работы батареи сокращается.",
-            "Warning: Lowering the delay may cause key double-clicking. If double-clicking occurs, please increase the delay time until double-clicking stops.": "Предупреждение: уменьшение задержки может привести к двойному нажатию клавиши. Если возникает двойное нажатие, пожалуйста, увеличивайте время задержки до прекращения.",
-            "This operation will delete saved data. Continue?": "Эта операция удалит сохранённые данные. Продолжить?",
-            "Close": "Закрыть"
-        }
-    };
-
-    // ==================== СИСТЕМА ОБНОВЛЕНИЙ ====================
-    const UpdateSystem = {
-        async checkForUpdates() {
-            Logger.log('🔍 Проверка обновлений на GitHub...');
-            try {
-                const response = await fetch(CONFIG.GITHUB_API_URL);
-                if (!response.ok) throw new Error('Не удалось получить информацию о версии');
-
-                const data = await response.json();
-                const remoteVersion = data.tag_name.replace('v', '');
-
-                Logger.info(`Локальная версия: ${CONFIG.VERSION}`);
-                Logger.info(`Удалённая версия: ${remoteVersion}`);
-
-                if (this.compareVersions(remoteVersion, CONFIG.VERSION) > 0) {
-                    Logger.warn('🔄 Доступна новая версия!');
-                    this.showUpdateNotification(remoteVersion, data.html_url);
-                    return { hasUpdate: true, version: remoteVersion, url: data.html_url };
-                } else {
-                    Logger.success('✓ Вы используете последнюю версию');
-                    return { hasUpdate: false, version: CONFIG.VERSION };
-                }
-            } catch (error) {
-                Logger.error('Ошибка при проверке обновлений', error);
-                return { hasUpdate: false, version: CONFIG.VERSION, error: error.message };
-            }
-        },
-
-        compareVersions(v1, v2) {
-            const p1 = v1.split('.').map(Number);
-            const p2 = v2.split('.').map(Number);
-            for (let i = 0; i < Math.max(p1.length, p2.length); i++) {
-                const a = p1[i] || 0;
-                const b = p2[i] || 0;
-                if (a > b) return 1;
-                if (a < b) return -1;
-            }
-            return 0;
-        },
-
-        showUpdateNotification(version, url) {
-            const notif = document.createElement('div');
-            notif.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
-                color: white;
-                padding: 16px 24px;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
-                z-index: 100000;
-                font-family: 'Segoe UI', Arial, sans-serif;
-                font-size: 14px;
-                font-weight: 600;
-                max-width: 350px;
-                animation: slideInDown 0.3s ease;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            `;
-            notif.innerHTML = `
-                <div style="margin-bottom: 8px; font-size: 16px;">🔄 Версия ${version}</div>
-                <small>Нажмите для установки обновления</small>
-            `;
-            
-            notif.addEventListener('click', () => {
-                window.open(url, '_blank');
-            });
-            
-            document.body.appendChild(notif);
-
-            setTimeout(() => {
-                notif.style.opacity = '0';
-                notif.style.transition = 'opacity 0.3s ease';
-                setTimeout(() => notif.remove(), 300);
-            }, 7000);
-        },
-
-        async downloadAndInstall() {
-            Logger.log('📥 Загрузка новой версии скрипта...');
-            try {
-                const response = await fetch(`${CONFIG.GITHUB_RAW_URL}${CONFIG.SCRIPT_FILE}`);
-                const scriptContent = await response.text();
-                Logger.success('✓ Скрипт загружен успешно');
-                Logger.info('Перезагрузите страницу для применения обновления');
-                return scriptContent;
-            } catch (error) {
-                Logger.error('Ошибка при загрузке обновления', error);
-            }
+            "Copyright © 2025.MySite Ltd.All Rights Reserved.": "© 2025. Все права защищены."
         }
     };
 
@@ -244,12 +177,10 @@
         saveLanguage: (lang) => {
             try {
                 localStorage.setItem(CONFIG.STORAGE_KEY, lang);
-                Logger.success(`Язык сохранён: ${lang}`);
             } catch (e) {
                 Logger.error('Ошибка при сохранении языка', e);
             }
         },
-
         loadLanguage: () => {
             try {
                 const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
@@ -257,6 +188,23 @@
             } catch (e) {
                 Logger.error('Ошибка при загрузке языка', e);
                 return 'English';
+            }
+        },
+        saveEnabled: (val) => {
+            try {
+                localStorage.setItem(CONFIG.STORAGE_TOGGLE_KEY, val ? '1' : '0');
+            } catch (e) {
+                Logger.error('Ошибка при сохранении состояния переключателя', e);
+            }
+        },
+        loadEnabled: () => {
+            try {
+                const v = localStorage.getItem(CONFIG.STORAGE_TOGGLE_KEY);
+                if (v === null) return true;
+                return v === '1';
+            } catch (e) {
+                Logger.error('Ошибка при загрузке состояния переключателя', e);
+                return true;
             }
         }
     };
@@ -267,8 +215,7 @@
             if (!s) return s;
             const t = s.trim();
             const low = t.toLowerCase();
-            const tokens = ['key', '按键', '按钮', 'ボタン', 'キー', 'button', '键', '按'];
-
+            const tokens = ['key','按键','按钮','ボタン','キー','button','键','按'];
             for (let tok of tokens) {
                 if (low.includes(tok)) {
                     const m = t.match(/(\d+)/);
@@ -277,15 +224,11 @@
             }
             return t;
         },
-
         translateDOM: (node, dict) => {
             if (!node) return;
-
-            if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE' || node.tagName === 'NOSCRIPT' ||
-                node.id === 'darmoshark-translator-ui') {
+            if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE' || node.tagName === 'NOSCRIPT' || node.id === 'darmoshark-translator-ui') {
                 return;
             }
-
             if (node.nodeType === Node.TEXT_NODE) {
                 const text = node.textContent.trim();
                 if (text && text.length > 0 && text.length < 500) {
@@ -308,9 +251,8 @@
                 }
             }
         },
-
         translateAttributes: (element, dict) => {
-            const attrs = ['title', 'placeholder', 'aria-label', 'data-tooltip', 'alt'];
+            const attrs = ['title','placeholder','aria-label','data-tooltip','alt'];
             attrs.forEach(attr => {
                 const value = element.getAttribute(attr);
                 if (value && value.length > 0) {
@@ -322,434 +264,69 @@
                 }
             });
         },
-
         applyTranslation: (lang) => {
             const dict = translations[lang];
             if (!dict) {
                 Logger.warn(`Словарь для "${lang}" не найден`);
                 return;
             }
-
             Logger.log(`=== ПЕРЕВОД НА ${lang.toUpperCase()} ===`);
             translatedTexts.clear();
             Translator.translateDOM(document.body, dict);
             Logger.success(`Переведено: ${translatedTexts.size} элементов`);
-
             currentLanguage = lang;
             Storage.saveLanguage(lang);
         }
     };
 
-    // ==================== КРАСИВЫЙ UI v4.0 ====================
+    // ==================== МИНИМАЛЬНЫЙ UI: ТОЛЬКО КНОПКА-ПЛАНЕТА ====================
     const UI = {
         createButton: () => {
             const btn = document.createElement('div');
             btn.id = 'darmoshark-btn-main';
             btn.innerHTML = '🌐';
-            btn.title = 'Darmoshark Translator';
-            btn.style.cssText = `
-                position: fixed;
-                bottom: 25px;
-                right: 25px;
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
-                color: white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 28px;
-                cursor: pointer;
-                box-shadow: 0 4px 20px rgba(33, 150, 243, 0.4), 0 0 0 0 rgba(33, 150, 243, 0.2);
-                z-index: 99999;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                font-weight: bold;
-                user-select: none;
-                animation: pulse 2s infinite;
-                border: none;
-            `;
-
-            btn.addEventListener('mouseenter', () => {
-                btn.style.transform = 'scale(1.15) translateY(-5px)';
-                btn.style.boxShadow = '0 8px 25px rgba(33, 150, 243, 0.6), 0 0 0 0 rgba(33, 150, 243, 0.2)';
-            });
-
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'scale(1) translateY(0)';
-                btn.style.boxShadow = '0 4px 20px rgba(33, 150, 243, 0.4), 0 0 0 0 rgba(33, 150, 243, 0.2)';
-            });
+            btn.title = 'Перевод Darmoshark (вкл/выкл)';
 
             btn.addEventListener('click', () => {
-                UI.toggleMenu();
-                isMenuOpen = !isMenuOpen;
+                isEnabled = !isEnabled;
+                Storage.saveEnabled(isEnabled);
+                if (isEnabled) {
+                    Logger.success('Перевод включён');
+                    Translator.applyTranslation('Русский');
+                } else {
+                    Logger.success('Перевод выключен, оригинальный язык восстановлен');
+                    location.reload();
+                }
             });
+
+            try {
+                updatePlanetColor(btn);
+                const themeObserver = new MutationObserver(() => updatePlanetColor(btn));
+                themeObserver.observe(document.body, { attributes: true, subtree: true, childList: true });
+            } catch (e) { /* ignore */ }
 
             return btn;
-        },
-
-        createMenu: () => {
-            const menu = document.createElement('div');
-            menu.id = 'darmoshark-menu-container';
-            menu.style.display = 'none';
-
-            const menuHTML = `
-                <style>
-                    @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-                    @keyframes pulse { 0%, 100% { box-shadow: 0 4px 20px rgba(33, 150, 243, 0.4), 0 0 0 0 rgba(33, 150, 243, 0.2); } 50% { box-shadow: 0 4px 20px rgba(33, 150, 243, 0.4), 0 0 0 8px rgba(33, 150, 243, 0); } }
-                    @keyframes slideInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-                    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
-
-                    .darmoshark-menu {
-                        position: fixed;
-                        bottom: 100px;
-                        right: 25px;
-                        width: 360px;
-                        background: white;
-                        border-radius: 16px;
-                        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-                        overflow: hidden;
-                        z-index: 99998;
-                        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-                        animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                    }
-
-                    .darmoshark-menu-header {
-                        background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
-                        color: white;
-                        padding: 22px 20px;
-                        text-align: center;
-                        font-weight: 700;
-                        font-size: 17px;
-                        letter-spacing: 0.5px;
-                    }
-
-                    .darmoshark-menu-content {
-                        padding: 18px;
-                        max-height: 500px;
-                        overflow-y: auto;
-                    }
-
-                    .darmoshark-lang-label {
-                        font-size: 11px;
-                        font-weight: 700;
-                        color: #666;
-                        text-transform: uppercase;
-                        letter-spacing: 1px;
-                        margin-bottom: 12px;
-                        padding: 8px 0;
-                        border-bottom: 2px solid #f0f0f0;
-                    }
-
-                    .darmoshark-lang-item {
-                        padding: 13px 15px;
-                        margin: 7px 0;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        transition: all 0.2s ease;
-                        border: 2px solid #e0e0e0;
-                        font-size: 13px;
-                        font-weight: 600;
-                        background-color: #f9f9f9;
-                    }
-
-                    .darmoshark-lang-item:hover {
-                        background-color: #f0f7ff;
-                        border-color: #2196F3;
-                        transform: translateX(4px);
-                    }
-
-                    .darmoshark-lang-item.active {
-                        background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
-                        color: white;
-                        border-color: #1976D2;
-                        box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
-                    }
-
-                    .darmoshark-menu-button {
-                        width: 100%;
-                        padding: 12px 14px;
-                        margin: 8px 0;
-                        border: none;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        font-size: 12px;
-                        font-weight: 700;
-                        transition: all 0.2s ease;
-                        text-align: center;
-                        text-transform: uppercase;
-                        letter-spacing: 0.5px;
-                    }
-
-                    .darmoshark-btn-export {
-                        background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
-                        color: white;
-                    }
-
-                    .darmoshark-btn-export:hover {
-                        box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
-                        transform: translateY(-2px);
-                    }
-
-                    .darmoshark-btn-check {
-                        background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
-                        color: white;
-                    }
-
-                    .darmoshark-btn-check:hover {
-                        box-shadow: 0 4px 16px rgba(255, 152, 0, 0.4);
-                        transform: translateY(-2px);
-                    }
-
-                    .darmoshark-btn-stats {
-                        background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);
-                        color: white;
-                    }
-
-                    .darmoshark-btn-stats:hover {
-                        box-shadow: 0 4px 16px rgba(156, 39, 176, 0.4);
-                        transform: translateY(-2px);
-                    }
-
-                    .darmoshark-status-box {
-                        background-color: #f0f7ff;
-                        border-left: 4px solid #2196F3;
-                        padding: 12px;
-                        border-radius: 6px;
-                        font-size: 12px;
-                        color: #1565C0;
-                        margin-bottom: 12px;
-                        font-weight: 500;
-                        line-height: 1.5;
-                    }
-
-                    .darmoshark-status-box.warning {
-                        background-color: #fff3e0;
-                        border-left-color: #FF9800;
-                        color: #E65100;
-                    }
-
-                    .darmoshark-status-box.success {
-                        background-color: #e8f5e9;
-                        border-left-color: #4CAF50;
-                        color: #2E7D32;
-                    }
-
-                    .darmoshark-menu-footer {
-                        border-top: 1px solid #e0e0e0;
-                        padding: 12px 16px;
-                        font-size: 11px;
-                        color: #999;
-                        text-align: center;
-                        background-color: #fafafa;
-                    }
-
-                    .darmoshark-stats-row {
-                        display: flex;
-                        justify-content: space-between;
-                        padding: 8px 0;
-                        font-size: 12px;
-                    }
-
-                    .darmoshark-stats-label {
-                        color: #666;
-                        font-weight: 600;
-                    }
-
-                    .darmoshark-stats-value {
-                        color: #2196F3;
-                        font-weight: 700;
-                    }
-
-                    .darmoshark-menu-close {
-                        position: absolute;
-                        top: 10px;
-                        right: 10px;
-                        cursor: pointer;
-                        font-size: 20px;
-                        color: white;
-                        opacity: 0.8;
-                        transition: opacity 0.2s;
-                    }
-
-                    .darmoshark-menu-close:hover {
-                        opacity: 1;
-                    }
-                </style>
-
-                <div class="darmoshark-menu">
-                    <div class="darmoshark-menu-header">
-                        🌐 Darmoshark Translator v${CONFIG.VERSION}
-                    </div>
-
-                    <div class="darmoshark-menu-content">
-                        <div class="darmoshark-status-box success">
-                            ✓ <strong>Переводчик активен</strong>
-                        </div>
-
-                        <div class="darmoshark-lang-label">Язык интерфейса</div>
-
-                        <div class="darmoshark-lang-item active" data-lang="English">
-                            🇬🇧 English (Original)
-                        </div>
-
-                        <div class="darmoshark-lang-item" data-lang="Русский">
-                            🇷🇺 Русский (Russian)
-                        </div>
-
-                        <button class="darmoshark-menu-button darmoshark-btn-stats" id="darmoshark-show-stats">
-                            📊 СТАТИСТИКА
-                        </button>
-
-                        <button class="darmoshark-menu-button darmoshark-btn-export" id="darmoshark-export-all">
-                            📥 ЭКСПОРТИРОВАТЬ
-                        </button>
-
-                        <button class="darmoshark-menu-button darmoshark-btn-check" id="darmoshark-check-update">
-                            🔄 ОБНОВЛЕНИЯ
-                        </button>
-                    </div>
-
-                    <div class="darmoshark-menu-footer">
-                        v${CONFIG.VERSION} © 2025 | Darmoshark Community
-                    </div>
-                </div>
-            `;
-
-            menu.innerHTML = menuHTML;
-            return menu;
-        },
-
-        toggleMenu: () => {
-            const menu = document.getElementById('darmoshark-menu-container');
-            if (menu) {
-                menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-            }
-        },
-
-        hideMenu: () => {
-            const menu = document.getElementById('darmoshark-menu-container');
-            if (menu) {
-                menu.style.display = 'none';
-                isMenuOpen = false;
-            }
-        },
-
-        showStats: () => {
-            const statsHtml = `
-                <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 50px rgba(0,0,0,0.3); z-index: 100001; font-family: 'Segoe UI', Arial;">
-                    <h3 style="margin: 0 0 20px 0; color: #2196F3;">📊 Статистика переводов</h3>
-                    <div style="margin-bottom: 10px;"><strong>Язык:</strong> ${currentLanguage}</div>
-                    <div style="margin-bottom: 10px;"><strong>Переведено:</strong> ${translatedTexts.size}</div>
-                    <div style="margin-bottom: 10px;"><strong>Успешно:</strong> ${translationStats.successful}</div>
-                    <div style="margin-bottom: 10px;"><strong>Версия:</strong> ${CONFIG.VERSION}</div>
-                    <button onclick="this.parentElement.parentElement.remove()" style="padding: 8px 16px; background: #2196F3; color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 10px;">Закрыть</button>
-                </div>
-            `;
-            const overlay = document.createElement('div');
-            overlay.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100000;';
-            overlay.innerHTML = statsHtml;
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) overlay.remove();
-            });
-            document.body.appendChild(overlay);
-        },
-
-        initHandlers: () => {
-            const langItems = document.querySelectorAll('.darmoshark-lang-item');
-            langItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    const lang = e.target.getAttribute('data-lang');
-                    langItems.forEach(i => i.classList.remove('active'));
-                    e.target.classList.add('active');
-                    Logger.log(`🔤 Переключение на: ${lang}`);
-                    Translator.applyTranslation(lang);
-                    UI.hideMenu();
-                    Logger.success(`✓ Язык изменён на ${lang}`);
-                });
-            });
-
-            document.getElementById('darmoshark-show-stats')?.addEventListener('click', () => {
-                UI.showStats();
-            });
-
-            document.getElementById('darmoshark-export-all')?.addEventListener('click', () => {
-                Logger.log('📊 Сбор данных сайта...');
-                const stats = {
-                    texts: translatedTexts.size,
-                    language: currentLanguage,
-                    timestamp: new Date().toISOString(),
-                    version: CONFIG.VERSION
-                };
-                const json = JSON.stringify({ ...stats }, null, 2);
-                const blob = new Blob([json], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `darmoshark-export-${currentLanguage}-${Date.now()}.json`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                Logger.success('✓ Файл экспортирован успешно');
-            });
-
-            document.getElementById('darmoshark-check-update')?.addEventListener('click', async () => {
-                Logger.log('🔍 Проверка обновлений...');
-                const result = await UpdateSystem.checkForUpdates();
-                if (result.hasUpdate) {
-                    Logger.warn(`Доступна версия ${result.version}`);
-                } else {
-                    Logger.success('Вы используете последнюю версию');
-                }
-            });
-
-            document.addEventListener('click', (e) => {
-                const menu = document.getElementById('darmoshark-menu-container');
-                const btn = document.getElementById('darmoshark-btn-main');
-                if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target) && isMenuOpen) {
-                    UI.hideMenu();
-                }
-            });
         }
     };
 
     // ==================== ИНИЦИАЛИЗАЦИЯ ====================
-    const initialize = () => {
-        Logger.success(`
-╔════════════════════════════════════════════════╗
-║   🌐 DARMOSHARK TRANSLATOR v${CONFIG.VERSION}    ║
-║                                                ║
-║   ✓ Современный UI с градиентами           ║
-║   ✓ Система проверки обновлений GitHub      ║
-║   ✓ Сохранение выбранного языка            ║
-║   ✓ Экспорт текстов со всего сайта         ║
-║   ✓ Статистика переводов                   ║
-║   ✓ Полная консоль логирования             ║
-║   ✓ Кеширование переводов                  ║
-║                                                ║
-╚════════════════════════════════════════════════╝
-        `);
+    const initialize = async () => {
+        await loadExternalResources();
 
         currentLanguage = Storage.loadLanguage();
+        isEnabled = Storage.loadEnabled();
         Logger.info(`Сохранённый язык: ${currentLanguage}`);
+        Logger.info(`Перевод включён: ${isEnabled}`);
 
         const btn = UI.createButton();
-        const menu = UI.createMenu();
-
         document.body.appendChild(btn);
-        document.body.appendChild(menu);
 
-        UI.initHandlers();
-
-        if (currentLanguage !== 'English') {
-            Logger.log(`Применение языка: ${currentLanguage}`);
+        if (isEnabled && currentLanguage !== 'English') {
             Translator.applyTranslation(currentLanguage);
         }
 
-        // Мониторинг DOM
         mutationObserver = new MutationObserver((mutations) => {
-            if (currentLanguage !== 'English') {
+            if (isEnabled && currentLanguage !== 'English') {
                 mutations.forEach(mutation => {
                     if (mutation.addedNodes.length > 0) {
                         mutation.addedNodes.forEach(node => {
@@ -767,15 +344,6 @@
             childList: true,
             subtree: true
         });
-
-        // Проверка обновлений при загрузке
-        if (CONFIG.AUTO_UPDATE_CHECK) {
-            setTimeout(() => {
-                UpdateSystem.checkForUpdates();
-            }, 3000);
-        }
-
-        Logger.success('✓ Инициализация завершена');
     };
 
     if (document.readyState === 'loading') {
@@ -783,22 +351,5 @@
     } else {
         initialize();
     }
-
-    // API для консоли
-    window.DarmoTranslator = {
-        version: CONFIG.VERSION,
-        currentLanguage: () => currentLanguage,
-        setLanguage: (lang) => Translator.applyTranslation(lang),
-        checkUpdates: () => UpdateSystem.checkForUpdates(),
-        showInfo: () => {
-            Logger.success('=== СПРАВКА ===');
-            console.table({
-                'DarmoTranslator.version': CONFIG.VERSION,
-                'DarmoTranslator.currentLanguage()': 'Текущий язык',
-                'DarmoTranslator.setLanguage(lang)': 'Установить язык',
-                'DarmoTranslator.checkUpdates()': 'Проверить обновления'
-            });
-        }
-    };
 
 })();
