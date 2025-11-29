@@ -11,7 +11,7 @@
 ![Badge](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2FXanixsl%2FRussifier-Drk-WEB&label=Visits&icon=person-fill&color=%238c68cd)
 
 [![Version](https://img.shields.io/github/v/release/Xanixsl/Russifier-Drk-WEB?include_prereleases&label=Beta%20Version&style=flat-square)](https://github.com/Xanixsl/Russifier-Drk-WEB/releases)
-[![Downloads](https://img.shields.io/github/downloads/Xanixsl/Russifier-Drk-WEB/total?label=Downloads&style=flat-square)](https://github.com/Xanixsl/Russifier-Drk-WEB/releases)
+[![Downloads](https://img.shields.io/github/downloads/Xanixsl/Russifier-Drk-WEB/main/Russifier-Drk-web.user.js?label=Downloads&style=flat-square)](https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/main/Russifier-Drk-web.user.js)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 
 ---
