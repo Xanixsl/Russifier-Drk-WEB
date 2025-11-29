@@ -9,7 +9,7 @@
   "Dark theme": "Тёмная тема",
   "Light theme": "Светлая тема",
   "Config List": "Список конфигураций",
-  "USBLink": "USB подключение",
+  "USBLink": "USB",
   "Fully Charged": "Полностью заряжено",
   "Copyright © 2025.MySite Ltd.All Rights Reserved.": "© 2025. Все права защищены.",
   "Reset": "Сброс",
@@ -81,8 +81,6 @@
   "Medium": "Средняя",
   "High": "Высокая",
   "Sensor Performance": "Производительность датчика",
-  "Ripple Control": "Ripple Control",
-  "Angle Snap": "Angle Snap",
   "Motion SyncOn": "Motion Sync",
   "Scroll Direction Setting": "Настройка направления прокрутки",
   "Reverse": "Обратное направление",
@@ -167,5 +165,10 @@
   "Key Value": "Значение клавиши",
   "Count": "Счётчик",
   "Rate": "Частота",
-  "keyboard": "клавиат."
+  "keyboard": "клавиат.",
+  "Ripple Control": "Фильтр ряби",
+  "Angle Snap": "Фиксация угла",
+  "Motion Sync": "Синхр. движения",
+  "Do not pair the mouse repeatedly.": "Не подключайте мышь повторно.",
+  "Click the connect device button below and select the receiver device.": "Нажмите кнопку подключения ниже и выберите приёмник."
 }
