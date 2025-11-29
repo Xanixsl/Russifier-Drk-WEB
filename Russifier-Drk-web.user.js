@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name            Russifier Drk WEB
 // @namespace       https://github.com/Xanixsl/Russifier-Drk-WEB
-// @version         1.0.1
-// @description     Полный русификатор интерфейса Darmoshark.cc для тёмных тем. Переключатель перевода «вкл/выкл» с загрузкой внешних словарей и стилей.
+// @version         1.0.1-pre
+// @description     Русификатор интерфейса Darmoshark.cc
 // @author          Xanix
 // @match           https://www.darmoshark.cc/*
 // @icon            https://www.darmoshark.cc/favicon.ico
@@ -361,5 +361,6 @@
     }
 
 })();
+
 
 
