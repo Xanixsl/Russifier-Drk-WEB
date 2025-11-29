@@ -9,7 +9,7 @@
   "Dark theme": "Тёмная тема",
   "Light theme": "Светлая тема",
   "Config List": "Список конфигураций",
-  "USBLink": "USB подключение",
+  "USBLink": "USB",
   "Fully Charged": "Полностью заряжено",
   "Copyright © 2025.MySite Ltd.All Rights Reserved.": "© 2025. Все права защищены.",
   "Reset": "Сброс",
@@ -122,7 +122,7 @@
   "This operation will delete saved data. Continue?": "При сбросе все ваши данные будут удалены, ПРОДОЛЖИТЬ?",
   "Reset Settings?": "Сбросить настройки?",
   "Reset Button": "Сбросить",
-  "Confirm": "Да",
+  "Confirm": "Подтвердить",
   "Close": "Нет",
   "Volume+": "Громкость +",
   "Volume-": "Громкость -",
@@ -158,5 +158,6 @@
   "Connecting...": "Подключение...",
   "Connected": "Подключено",
   "Dark themeLight theme": "Тёмная тема / Светлая тема",
-  "Volume": "Громкость"
+  "Volume": "Громкость",
+  "Left-click configuration is locked and cannot be configured.": "Конфигурация левой кнопки заблокирована и не может быть изменена."
 }
