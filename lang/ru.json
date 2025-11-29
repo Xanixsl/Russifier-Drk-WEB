@@ -166,9 +166,12 @@
   "Count": "Счётчик",
   "Rate": "Частота",
   "keyboard": "клавиат.",
-  "Ripple Control": "Фильтр ряби",
-  "Angle Snap": "Фиксация угла",
+  "Ripple Control": "Фильтр ряби", 
+  "【Angle Snap】": "【Фиксация угла】",
   "Motion Sync": "Синхр. движения",
+  "【Ripple Control】": "【Фильтр ряби】",
+  "Angle Snap": "Фиксация угла",
+  "【Motion Sync】": "【Синхр. движения】",
   "Do not pair the mouse repeatedly.": "Не подключайте мышь повторно.",
   "Click the connect device button below and select the receiver device.": "Нажмите кнопку подключения ниже и выберите приёмник."
 }
