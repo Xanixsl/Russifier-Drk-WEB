@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name            Russifier Drk WEB цу
+// @name            Russifier Drk WEB
 // @namespace       https://github.com/Xanixsl/Russifier-Drk-WEB
 // @version         1.0.2-pre
 // @description     Русификатор интерфейса Darmoshark.cc
@@ -353,3 +353,4 @@
     }
 
 })();
+
