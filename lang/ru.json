@@ -5,7 +5,7 @@
   "Macro": "Макросы",
   "Function": "Функции",
   "System": "Система",
-  "English": "English",
+  "English": "Русский",
   "Dark theme": "Тёмная тема",
   "Light theme": "Светлая тема",
   "Config List": "Список конфигураций",
@@ -193,8 +193,27 @@
   "配置05": "Конфиг 05",
   "Please Input Single Key": "Введите одну клавишу",
   "2.4GhzLink": "2.4 ГГц",
-  "Charging": "Зарядка"
+  "Charging": "Зарядка",
+  "Left Click↓": "Левая КП Нажата",
+  "Left Click↑": "Левая Кп Отпущ",
+  "Middle Click↓": "Колесико Нажато",
+  "Middle Click↑": "Колесико Отпущ",
+  "Backward↓": "Назад Нажата",
+  "Backward↑": "Назад Отпущ",
+  "Forward↓": "Вперед Нажата",
+  "Forward↑": "Вперед Отпущ",
+  "Right Click↓": "Правая КП Нажата",
+  "Right Click↑": "Правая КП Отпущ",
+  "Scroll Up↓": "Колесико Вверх Наж",
+  "Scroll Up↑": "Колесико Вверх Отпущ",
+  "Scroll Down↓": "Колесико Вниз Наж",
+  "Scroll Down↑": "Колесико Вниз Отпущ",
+  "Top": "В начало",
+  "Move Up": "Поднять",
+  "Move Down": "Опустить",
+  "Bottom": "В конец"
 }
+
 
 
 
