@@ -175,6 +175,8 @@
   "Успешно": "Succeed",
   "Нажмите кнопку подключения ниже и выберите приёмник.": "Click the connect device button below and select the receiver device.",
   "Не подключайте мышь повторно.": "Do not pair the mouse repeatedly.",
+  "Нажмите кнопку сопряжения ниже, чтобы выполнить сопряжение.": "Click the pairing button below to pair.",
+  "Сопряжение": "Pairing",
   "Свойства события": "Event Properties",
   "Вставить событие мыши": "Insert Mouse Event",
   "Значение события": "Event Value",
