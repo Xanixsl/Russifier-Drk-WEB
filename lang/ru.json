@@ -1,4 +1,11 @@
 {
+  "_meta": {
+    "version": "2.0.0",
+    "author": "Xanix",
+    "updated": "2026-01-06",
+    "website": "https://github.com/Xanixsl/Russifier-Drk-WEB"
+  },
+  
   "Home": "Главная",
   "Key": "Кнопки",
   "Pointer": "Указатель",
@@ -33,6 +40,8 @@
   "Scroll Down": "Колесико вниз",
   "Scroll Left": "Колесико влево",
   "ScrollRight": "Прокрутка вправо",
+  "Scroll Right": "Прокрутка вправо",
+  "ScrollLeft": "Прокрутка влево",
   "Key2": "2",
   "Basic Mouse Function": "Базовые функции мыши",
   "Sensitivity": "Чувствительность",
@@ -110,6 +119,7 @@
   "Left Click Lock": "Блокировка левой кнопки",
   "Lock": "Вкл.",
   "Unlock": "Выкл.",
+  "Left Click Lock": "Блокировка левой кнопки",
   "Mouse lift-off distance, Low: 0.7mm, Medium: 1mm, High: 2mm": "Высота отрыва мыши: низкая 0.7 мм, средняя 1 мм, высокая 2 мм",
   "The sensor will have a ripple effect when the DPI value is greater than 9000, improve this ripple, ignore this setting when DPI is less than 9000": "Датчик может давать пульсацию при DPI выше 9000. Улучшает сглаживание, игнорируйте при DPI ниже 9000.",
   "Correct offset at a certain angle to a straight line.": "Корректирует смещение под углом к прямой.",
@@ -142,8 +152,6 @@
   "Copy": "Копировать",
   "Cut": "Вырезать",
   "Paste": "Вставить",
-  "Scroll Right": "Прокрутка вправо",
-  "ScrollLeft": "Прокрутка влево",
   "Double-Click Left Button": "Двойной клик левой кнопкой",
   "Light Effect Switching": "Переключение светового эффекта",
   "Speed Switch": "Переключение скорости",
@@ -155,7 +163,6 @@
   "Connecting": "Подключение",
   "Connecting...": "Подключение...",
   "Connected": "Подключено",
-  "Dark themeLight theme": "Тёмная тема / Светлая тема",
   "Volume": "Громкость",
   "Left-click configuration is locked and cannot be configured.": "Конфигурация левой кнопки заблокирована и не может быть изменена.",
   "No HID Device Selected": "HID-устройство не выбрано",
@@ -215,4 +222,3 @@
   "Click the pairing button below to pair.": "Нажмите кнопку сопряжения ниже, чтобы выполнить сопряжение.",
   "Pairing": "Сопряжение"
 }
-
