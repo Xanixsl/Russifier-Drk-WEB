@@ -1,6 +1,6 @@
 {
     "_meta": {
-        "version": "1.0.2",
+        "version": "2.1.2",
         "description": "Константы для Russifier Drk WEB",
         "author": "Xanix",
         "created": "2026-01-06",
@@ -58,16 +58,30 @@
     "URLS": {
         "GITHUB_REPO": "https://github.com/Xanixsl/Russifier-Drk-WEB",
         "DISCUSSIONS": "https://github.com/Xanixsl/Russifier-Drk-WEB/discussions",
-        "ISSUES": "https://github.com/Xanixsl/Russifier-Drk-WEB/issues"
+        "ISSUES": "https://github.com/Xanixsl/Russifier-Drk-WEB/issues",
+        "LANG_BASE": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/lang/",
+        "STYLES": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/src/style.css",
+        "DEBUG_HTML": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/src/debug.html",
+        "DEBUG_STYLES": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/src/debug.css",
+        "CONFIG_HTML": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/src/config.html"
     },
     
-    "DEFAULT_CONFIG": {
-        "MIN_TEXT_LENGTH": 2,
-        "CACHE_TTL_DAYS": 7,
-        "DEFAULT_LANG": "ru"
+    "CONFIG": {
+        "ENABLED_KEY": "drk_enabled_v2",
+        "DEBUG_KEY": "drk_debug_mode",
+        "CACHE_KEY": "drk_lang_cache",
+        "LAST_CHECK_KEY": "drk_last_update_check",
+        "CACHE_TTL": 604800000,
+        "AUTO_CHECK_UPDATES": true,
+        "SHOW_UNTANSLATED": true,
+        "ENABLE_OBSERVER": true,
+        "ENABLE_FIXES": true,
+        "ENABLE_DEV_TOOLS": false,
+        "ENABLE_LANGUAGE_DETECTOR": true,
+        "MIN_TEXT_LENGTH": 2
     },
     
     "DEBUG_HASH": "#drk_debug_eHJhbml4XzIwMjY=",
-    "VERSION": "2.1.1",
+    "VERSION": "2.1.2",
     "AUTHOR": "Xanix"
 }
