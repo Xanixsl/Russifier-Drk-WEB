@@ -8,12 +8,12 @@
     border-radius: 8px;
     font-family: 'Courier New', monospace;
     font-size: 12px;
-    z-index: 2147483647;
+    z-index: 2147483646;
     max-width: 500px;
     max-height: 80vh;
     overflow-y: auto;
-    box-shadow: 0 0 20px rgba(0,255,0,0.3);
-    border: 1px solid #00ff00;
+    box-shadow: 0 0 20px rgba(33, 150, 243, 0.3);
+    border: 1px solid #2196f3;
 }
 
 .drk-dev-header {
@@ -27,7 +27,7 @@
 
 .drk-dev-header h3 {
     margin: 0;
-    color: #00ff00;
+    color: #2196f3;
     font-size: 14px;
 }
 
@@ -71,7 +71,7 @@
 .drk-dev-btn:hover {
     background: #333;
     color: #fff;
-    border-color: #00ff00;
+    border-color: #2196f3;
 }
 
 .drk-icon {
@@ -89,7 +89,7 @@
 
 .drk-dev-section h4 {
     margin: 0 0 10px 0;
-    color: #00ff00;
+    color: #2196f3;
     font-size: 13px;
 }
 
@@ -160,7 +160,7 @@
 .drk-debug-hash code {
     margin: 0 5px;
     font-family: 'Courier New', monospace;
-    color: #00ff00;
+    color: #2196f3;
     font-size: 9px;
     word-break: break-all;
 }
@@ -188,12 +188,12 @@
 }
 
 .drk-dev-panel::-webkit-scrollbar-thumb {
-    background: #00ff00;
+    background: #2196f3;
     border-radius: 4px;
 }
 
 .drk-dev-panel::-webkit-scrollbar-thumb:hover {
-    background: #00cc00;
+    background: #0d8bf2;
 }
 
 @keyframes drk-slide-in {
