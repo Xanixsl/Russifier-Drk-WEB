@@ -26,7 +26,7 @@
         "SHOW_UNTANSLATED": true,
         "ENABLE_OBSERVER": true,
         "ENABLE_FIXES": true,
-        "ENABLE_DEV_TOOLS": false,
+        "ENABLE_DEV_TOOLS": true,
         "ENABLE_LANGUAGE_DETECTOR": true,
         "MIN_TEXT_LENGTH": 2,
         "TRANSLATION_TIMEOUT": 10000,
