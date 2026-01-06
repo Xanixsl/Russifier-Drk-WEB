@@ -65,5 +65,9 @@
         "MIN_TEXT_LENGTH": 2,
         "CACHE_TTL_DAYS": 7,
         "DEFAULT_LANG": "ru"
-    }
+    },
+    
+    "DEBUG_HASH": "#drk_debug_eHJhbml4XzIwMjY=",
+    "VERSION": "2.1.1",
+    "AUTHOR": "Xanix"
 }
