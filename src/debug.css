@@ -93,42 +93,9 @@
     font-size: 13px;
 }
 
-.drk-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 15px;
-}
-
-.drk-stat-card {
-    background: #111;
-    border-radius: 4px;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #333;
-}
-
-.drk-stat-label {
-    font-size: 10px;
-    color: #aaa;
-    margin-bottom: 5px;
-}
-
-.drk-stat-value {
-    font-size: 18px;
-    font-weight: bold;
-    color: #00ff00;
-}
-
-.drk-stats-info {
-    background: #1a1a1a;
-    padding: 10px;
-    border-radius: 4px;
+.drk-stats-content {
     font-size: 11px;
-}
-
-.drk-stats-info div {
-    margin: 3px 0;
+    line-height: 1.4;
 }
 
 .drk-untranslated-list {
@@ -187,6 +154,7 @@
     background: #111;
     padding: 5px;
     border-radius: 3px;
+    margin-bottom: 5px;
 }
 
 .drk-debug-hash code {
@@ -195,6 +163,20 @@
     color: #00ff00;
     font-size: 9px;
     word-break: break-all;
+}
+
+.drk-shortcuts {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    color: #666;
+}
+
+.drk-shortcut {
+    background: #222;
+    padding: 2px 5px;
+    border-radius: 3px;
+    border: 1px solid #444;
 }
 
 .drk-dev-panel::-webkit-scrollbar {
