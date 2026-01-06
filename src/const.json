@@ -1,6 +1,6 @@
 {
     "_meta": {
-        "version": "2.1.2",
+        "version": "2.1.3",
         "description": "Константы для Russifier Drk WEB",
         "author": "Xanix",
         "created": "2026-01-06",
@@ -82,6 +82,6 @@
     },
     
     "DEBUG_HASH": "#drk_debug_eHJhbml4XzIwMjY=",
-    "VERSION": "2.1.2",
+    "VERSION": "2.1.3",
     "AUTHOR": "Xanix"
 }
