@@ -1,11 +1,4 @@
 {
-  "_meta": {
-    "version": "2.0.0",
-    "author": "Xanix",
-    "updated": "2026-01-06",
-    "website": "https://github.com/Xanixsl/Russifier-Drk-WEB"
-  },
-  
   "Home": "Главная",
   "Key": "Кнопки",
   "Pointer": "Указатель",
@@ -223,4 +216,5 @@
   "Click the pairing button below to pair.": "Нажмите кнопку сопряжения ниже, чтобы выполнить сопряжение.",
   "Pairing": "Сопряжение"
 }
+
 
