@@ -1,0 +1,71 @@
+<div id="drk-config-panel" class="drk-config-panel" style="display: none;">
+    <div class="drk-config-header">
+        <h3>⚙️ Настройки Russifier</h3>
+        <button id="config-close" class="drk-close-btn">×</button>
+    </div>
+    
+    <div class="drk-config-section">
+        <h4>Основные настройки</h4>
+        <div class="drk-config-item">
+            <label>
+                <input type="checkbox" id="config-enabled">
+                <span class="drk-config-label">Русификатор включён</span>
+            </label>
+        </div>
+        <div class="drk-config-item">
+            <label>
+                <input type="checkbox" id="config-observer">
+                <span class="drk-config-label">Включить Observer (автоперевод новых элементов)</span>
+            </label>
+        </div>
+        <div class="drk-config-item">
+            <label>
+                <input type="checkbox" id="config-fixes">
+                <span class="drk-config-label">Включить фиксы (селекты, кнопки)</span>
+            </label>
+        </div>
+        <div class="drk-config-item">
+            <label>
+                <input type="checkbox" id="config-detector">
+                <span class="drk-config-label">Детектор языка (пропуск русских текстов)</span>
+            </label>
+        </div>
+        <div class="drk-config-item">
+            <label>
+                <input type="checkbox" id="config-show-untranslated">
+                <span class="drk-config-label">Логировать непереведённые тексты</span>
+            </label>
+        </div>
+    </div>
+    
+    <div class="drk-config-section">
+        <h4>Дополнительные настройки</h4>
+        <div class="drk-config-item">
+            <label>
+                <input type="checkbox" id="config-auto-update">
+                <span class="drk-config-label">Авто-проверка обновлений словаря</span>
+            </label>
+        </div>
+        <div class="drk-config-item">
+            <label>
+                <span class="drk-config-label">Минимальная длина текста:</span>
+                <input type="number" id="config-min-length" value="2" min="1" max="10" class="drk-config-input">
+            </label>
+        </div>
+        <div class="drk-config-item">
+            <label>
+                <span class="drk-config-label">TTL кэша словаря (дней):</span>
+                <input type="number" id="config-cache-ttl" value="7" min="1" max="30" class="drk-config-input">
+            </label>
+        </div>
+    </div>
+    
+    <div class="drk-config-buttons">
+        <button id="config-save" class="drk-dev-btn primary">💾 Сохранить настройки</button>
+        <button id="config-reset" class="drk-dev-btn">🔄 Сбросить к умолчаниям</button>
+    </div>
+    
+    <div class="drk-config-info">
+        <p><strong>ℹ️ Примечание:</strong> Изменения вступят в силу после обновления страницы.</p>
+    </div>
+</div>
