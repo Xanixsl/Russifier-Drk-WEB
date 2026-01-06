@@ -1,1 +1,69 @@
-Разработка!
+{
+    "_meta": {
+        "version": "2.1.1",
+        "description": "Константы для Russifier Drk WEB",
+        "author": "Xanix",
+        "created": "2024-01-01",
+        "updated": "2024-01-01"
+    },
+    
+    "LANG_FILE": "ru.json",
+    
+    "LANGUAGE_PATTERNS": {
+        "RUSSIAN_KEYWORDS": [
+            "макрос", "редактор", "имя", "пользовательский", "создать",
+            "список", "событий", "индекс", "событие", "значение", "вставить",
+            "удалить", "начать", "задержка", "без", "зап", "равномерн", "зад",
+            "циклы", "отпускания", "любого", "нажатия", "повт", "кол-во",
+            "повторов", "отключить", "экспорт", "импорт", "настройки",
+            "главная", "функции", "система", "версия", "конфиг", "подключить",
+            "сопряжение", "зарядка", "колесико", "кнопка", "чувствительность",
+            "частота", "параметры", "производительность", "датчик", "режим",
+            "киберспорта", "разгона", "время", "отклика", "сна", "заводских",
+            "сброс", "яркость", "громкость", "пауза", "трек", "калькулятор",
+            "компьютер", "страница", "почта", "обновить", "приложение",
+            "копировать", "вырезать", "вставить", "фильтр", "ряби", "фиксация",
+            "угла", "синхр", "движения", "успешно", "приёмник", "свойства",
+            "статус", "нажатие", "отпускание", "движение", "конец", "начало",
+            "поднять", "опустить", "двойной", "клик", "переключение", "скорости",
+            "цвета", "переименовать", "подключение", "подключено", "устройство",
+            "сохранить", "счётчик", "частота", "клавиат", "фильтр", "ряби",
+            "фиксация", "угла", "синхр", "движения", "успешно", "приёмник"
+        ],
+        
+        "ENGLISH_KEYWORDS": [
+            "Home", "Key", "Pointer", "Macro", "Function", "System", "English",
+            "Dark", "Light", "theme", "Config", "List", "USB", "Link", "Fully",
+            "Charged", "Copyright", "Reset", "Export", "Import", "Mouse", "Settings",
+            "Customize", "Buttons", "Click", "Forward", "Backward", "Scroll", "Up",
+            "Down", "Left", "Right", "Basic", "Sensitivity", "Multimedia", "Lighting",
+            "Switch", "Keyboard", "Combination", "Gaming", "Enhancement", "Disable",
+            "Number", "DPI", "Levels", "Report", "Rate", "HZ", "Editor", "Name",
+            "Create", "Event", "Index", "Value", "Insert", "Delete", "Start", "Stop",
+            "REC", "Record", "Time", "Delay", "Uniform", "Loops", "Loop", "Until",
+            "Release", "Any", "Press", "Again", "Count", "Lift", "Off", "Distance",
+            "Low", "Medium", "High", "Sensor", "Performance", "Motion", "Sync",
+            "Direction", "Reverse", "Angle", "Adjustment", "Esports", "Mode", "On",
+            "Off", "Overclocked", "Debounce", "Sleep", "Minute", "Firmware", "Version",
+            "Receiver", "Driver", "Factory", "Pairing", "Go", "Lock", "Unlock",
+            "Volume", "Mute", "Play", "Pause", "Previous", "Next", "Brightness",
+            "Calculator", "Computer", "Open", "Homepage", "Mail", "Refresh", "Switch",
+            "Application", "Copy", "Cut", "Paste", "Effect", "Speed", "Color", "Rename",
+            "Connect", "Connected", "HID", "Device", "Selected", "Keystrokes", "Second",
+            "Save", "Rate", "Ripple", "Control", "Snap", "Succeed", "Click", "Properties",
+            "Status", "Top", "Move", "Bottom"
+        ]
+    },
+    
+    "URLS": {
+        "GITHUB_REPO": "https://github.com/Xanixsl/Russifier-Drk-WEB",
+        "DISCUSSIONS": "https://github.com/Xanixsl/Russifier-Drk-WEB/discussions",
+        "ISSUES": "https://github.com/Xanixsl/Russifier-Drk-WEB/issues"
+    },
+    
+    "DEFAULT_CONFIG": {
+        "MIN_TEXT_LENGTH": 2,
+        "CACHE_TTL_DAYS": 7,
+        "DEFAULT_LANG": "ru"
+    }
+}
