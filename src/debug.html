@@ -1,4 +1,3 @@
-<!-- src/debug.html -->
 <div id="drk-dev-panel" class="drk-dev-panel" style="display: none;">
     <div class="drk-dev-header">
         <h3>🛠 DRK Dev Tools v<span id="drk-version">2.1.1</span></h3>
@@ -21,168 +20,58 @@
         <button id="drk-test-language" class="drk-dev-btn">
             <span class="drk-icon">🔤</span> Тест детектора языка
         </button>
-        <button id="drk-toggle-keys" class="drk-dev-btn">
-            <span class="drk-icon">🎮</span> Показать горячие клавиши
-        </button>
-        <button id="drk-reload-dict" class="drk-dev-btn">
-            <span class="drk-icon">🔄</span> Перезагрузить словарь
-        </button>
     </div>
     
-    <div class="drk-dev-tabs">
-        <button class="drk-tab-btn active" data-tab="stats">📊 Статистика</button>
-        <button class="drk-tab-btn" data-tab="untranslated">📝 Непереведённые</button>
-        <button class="drk-tab-btn" data-tab="config">⚙️ Конфиг</button>
-        <button class="drk-tab-btn" data-tab="console">🖥 Консоль</button>
+    <div id="drk-stats-display" class="drk-dev-section">
+        <h4>📊 Статистика перевода</h4>
+        <div class="drk-stats-grid">
+            <div class="drk-stat-card">
+                <div class="drk-stat-label">Всего проверено</div>
+                <div class="drk-stat-value" id="stat-total">0</div>
+            </div>
+            <div class="drk-stat-card">
+                <div class="drk-stat-label">Полный перевод</div>
+                <div class="drk-stat-value" id="stat-translated">0</div>
+            </div>
+            <div class="drk-stat-card">
+                <div class="drk-stat-label">Частичный перевод</div>
+                <div class="drk-stat-value" id="stat-partial">0</div>
+            </div>
+            <div class="drk-stat-card">
+                <div class="drk-stat-label">Пропущено (рус)</div>
+                <div class="drk-stat-value" id="stat-skipped">0</div>
+            </div>
+            <div class="drk-stat-card">
+                <div class="drk-stat-label">Не переведено</div>
+                <div class="drk-stat-value" id="stat-failed">0</div>
+            </div>
+            <div class="drk-stat-card">
+                <div class="drk-stat-label">Эффективность</div>
+                <div class="drk-stat-value" id="stat-efficiency">0%</div>
+            </div>
+        </div>
+        <div class="drk-stats-info">
+            <div>Размер словаря: <span id="dict-size">0</span> записей</div>
+            <div>Непереведённых (англ): <span id="untranslated-count">0</span></div>
+            <div>Версия словаря: <span id="dict-version">неизвестно</span></div>
+        </div>
     </div>
     
-    <div class="drk-dev-tab-content">
-        <!-- Статистика -->
-        <div id="drk-tab-stats" class="drk-tab-pane active">
-            <div class="drk-stats-grid">
-                <div class="drk-stat-card">
-                    <div class="drk-stat-label">Всего проверено</div>
-                    <div class="drk-stat-value" id="stat-total">0</div>
-                </div>
-                <div class="drk-stat-card">
-                    <div class="drk-stat-label">Полный перевод</div>
-                    <div class="drk-stat-value" id="stat-translated">0</div>
-                </div>
-                <div class="drk-stat-card">
-                    <div class="drk-stat-label">Частичный перевод</div>
-                    <div class="drk-stat-value" id="stat-partial">0</div>
-                </div>
-                <div class="drk-stat-card">
-                    <div class="drk-stat-label">Пропущено (рус)</div>
-                    <div class="drk-stat-value" id="stat-skipped">0</div>
-                </div>
-                <div class="drk-stat-card">
-                    <div class="drk-stat-label">Не переведено</div>
-                    <div class="drk-stat-value" id="stat-failed">0</div>
-                </div>
-                <div class="drk-stat-card">
-                    <div class="drk-stat-label">Эффективность</div>
-                    <div class="drk-stat-value" id="stat-efficiency">0%</div>
-                </div>
-            </div>
-            <div class="drk-stats-info">
-                <div>Размер словаря: <span id="dict-size">0</span> записей</div>
-                <div>Непереведённых (англ): <span id="untranslated-count">0</span></div>
-                <div>Версия словаря: <span id="dict-version">неизвестно</span></div>
-                <div>Версия скрипта: <span id="script-version">2.1.1</span></div>
-            </div>
+    <div id="drk-untranslated-display" class="drk-dev-section">
+        <h4>📝 Непереведённые английские тексты</h4>
+        <div id="drk-untranslated-list" class="drk-untranslated-list">
+            <div class="drk-empty-state">Нет непереведённых текстов</div>
         </div>
-        
-        <!-- Непереведённые -->
-        <div id="drk-tab-untranslated" class="drk-tab-pane">
-            <div class="drk-search-box">
-                <input type="text" id="drk-search-untranslated" placeholder="Поиск в непереведённых..." 
-                       class="drk-search-input">
-                <button id="drk-clear-search" class="drk-search-clear">✕</button>
-            </div>
-            <div id="drk-untranslated-list" class="drk-untranslated-list">
-                <div class="drk-empty-state">Нет непереведённых текстов</div>
-            </div>
-            <div class="drk-list-info">
-                Показано: <span id="untranslated-shown">0</span> из <span id="untranslated-total">0</span>
-                <button id="drk-copy-all" class="drk-small-btn">Копировать все</button>
-            </div>
-        </div>
-        
-        <!-- Конфиг -->
-        <div id="drk-tab-config" class="drk-tab-pane">
-            <div class="drk-config-section">
-                <h4>⚙️ Основные настройки</h4>
-                <div class="drk-config-item">
-                    <label>
-                        <input type="checkbox" id="config-enabled" checked>
-                        <span class="drk-config-label">Русификатор включён</span>
-                    </label>
-                </div>
-                <div class="drk-config-item">
-                    <label>
-                        <input type="checkbox" id="config-observer" checked>
-                        <span class="drk-config-label">Включить Observer</span>
-                    </label>
-                </div>
-                <div class="drk-config-item">
-                    <label>
-                        <input type="checkbox" id="config-fixes" checked>
-                        <span class="drk-config-label">Включить фиксы</span>
-                    </label>
-                </div>
-                <div class="drk-config-item">
-                    <label>
-                        <input type="checkbox" id="config-detector" checked>
-                        <span class="drk-config-label">Детектор языка</span>
-                    </label>
-                </div>
-                <div class="drk-config-item">
-                    <label>
-                        <input type="checkbox" id="config-show-untranslated" checked>
-                        <span class="drk-config-label">Показывать непереведённые</span>
-                    </label>
-                </div>
-            </div>
-            
-            <div class="drk-config-section">
-                <h4>🔄 Дополнительно</h4>
-                <div class="drk-config-item">
-                    <label>
-                        <input type="checkbox" id="config-auto-update" checked>
-                        <span class="drk-config-label">Авто-обновления</span>
-                    </label>
-                </div>
-                <div class="drk-config-item">
-                    <label>
-                        <span class="drk-config-label">Мин. длина текста:</span>
-                        <input type="number" id="config-min-length" value="2" min="1" max="10" 
-                               class="drk-config-input">
-                    </label>
-                </div>
-                <div class="drk-config-item">
-                    <label>
-                        <span class="drk-config-label">TTL кэша (дней):</span>
-                        <input type="number" id="config-cache-ttl" value="7" min="1" max="30" 
-                               class="drk-config-input">
-                    </label>
-                </div>
-            </div>
-            
-            <div class="drk-config-buttons">
-                <button id="drk-save-config" class="drk-dev-btn primary">💾 Сохранить настройки</button>
-                <button id="drk-reset-config" class="drk-dev-btn">🔄 Сбросить к умолчаниям</button>
-            </div>
-        </div>
-        
-        <!-- Консоль -->
-        <div id="drk-tab-console" class="drk-tab-pane">
-            <div class="drk-console-header">
-                <h4>🖥 Логи русификатора</h4>
-                <button id="drk-clear-console" class="drk-small-btn">Очистить</button>
-            </div>
-            <div id="drk-console-output" class="drk-console-output">
-                <div class="drk-console-entry info">
-                    <span class="drk-console-time">[12:00:00]</span>
-                    <span class="drk-console-text">Русификатор инициализирован</span>
-                </div>
-            </div>
-            <div class="drk-console-input">
-                <input type="text" id="drk-console-command" placeholder="Введите команду (help для списка)" 
-                       class="drk-console-cmd">
-                <button id="drk-execute-cmd" class="drk-console-execute">▶</button>
-            </div>
-        </div>
+    </div>
+    
+    <div id="drk-language-test" class="drk-dev-section">
+        <h4>🔤 Тест детектора языка</h4>
+        <div class="drk-test-results" id="drk-test-results"></div>
     </div>
     
     <div class="drk-dev-footer">
         <div class="drk-debug-hash">
-            🔑 Дебаг хеш: <code id="debug-hash-display">loading...</code>
-            <button id="drk-copy-hash" class="drk-copy-btn" title="Копировать">📋</button>
-        </div>
-        <div class="drk-shortcuts">
-            <span class="drk-shortcut">Ctrl+Shift+D</span> - открыть/закрыть
-            <span class="drk-shortcut">Esc</span> - закрыть
+            🔑 Дебаг хеш: <code id="debug-hash-display">#drk_debug_eHJhbml4XzIwMjY=</code>
         </div>
     </div>
 </div>
