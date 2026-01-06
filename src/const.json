@@ -1,15 +1,32 @@
 {
     "_meta": {
-        "version": "2.1.3",
-        "description": "Константы для Russifier Drk WEB",
+        "version": "2.1.5",
+        "description": "Константы для Russifier Drk WEB 5",
         "author": "Xanix",
         "created": "2026-01-06",
-        "updated": "2026-01-06"
+        "updated": "2026-01-07",
+        "website": "https://github.com/Xanixsl/Russifier-Drk-WEB"
     },
     
+    "VERSION": "2.1.5",
+    "AUTHOR": "Xanix",
     "LANG_FILE": "ru.json",
+    "DEBUG_HASH": "#drk_debug_eHJhbml4XzIwMjY=",
+    
+    "CACHE_KEYS": {
+        "ENABLED_KEY": "drk_enabled_v2",
+        "DEBUG_KEY": "drk_debug_mode",
+        "LANG_CACHE_KEY": "drk_lang_cache",
+        "CONST_CACHE_KEY": "drk_const_cache",
+        "META_CACHE_KEY": "drk_meta_cache",
+        "USER_CONFIG_KEY": "drk_user_config",
+        "LAST_CHECK_KEY": "drk_last_update_check"
+    },
     
     "LANGUAGE_PATTERNS": {
+        "CYRILLIC": "[\u0400-\u04FF\u0500-\u052F\u2DE0-\u2DFF\uA640-\uA69F]",
+        "LATIN": "^[A-Za-z0-9\\s\\.,!?@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?`~]+$",
+        
         "RUSSIAN_KEYWORDS": [
             "макрос", "редактор", "имя", "пользовательский", "создать",
             "список", "событий", "индекс", "событие", "значение", "вставить",
@@ -29,30 +46,32 @@
             "цвета", "переименовать", "подключение", "подключено", "устройство",
             "сохранить", "счётчик", "частота", "клавиат", "фильтр", "ряби",
             "фиксация", "угла", "синхр", "движения", "успешно", "приёмник",
-            "ггц", "гц", "2.4", "донгл", "приемник", "приёмник", "зарядка"
+            "ггц", "гц", "2.4", "донгл", "приемник", "зарядка", "usb", "dpi",
+            "сенсор", "курсор", "мышь", "мыши", "перемещение", "скролл"
         ],
         
         "ENGLISH_KEYWORDS": [
-            "Home", "Key", "Pointer", "Macro", "Function", "System", "English",
-            "Dark", "Light", "theme", "Config", "List", "USB", "Link", "Fully",
-            "Charged", "Copyright", "Reset", "Export", "Import", "Mouse", "Settings",
-            "Customize", "Buttons", "Click", "Forward", "Backward", "Scroll", "Up",
-            "Down", "Left", "Right", "Basic", "Sensitivity", "Multimedia", "Lighting",
-            "Switch", "Keyboard", "Combination", "Gaming", "Enhancement", "Disable",
-            "Number", "DPI", "Levels", "Report", "Rate", "HZ", "Hz", "Editor", "Name",
-            "Create", "Event", "Index", "Value", "Insert", "Delete", "Start", "Stop",
-            "REC", "Record", "Time", "Delay", "Uniform", "Loops", "Loop", "Until",
-            "Release", "Any", "Press", "Again", "Count", "Lift", "Off", "Distance",
-            "Low", "Medium", "High", "Sensor", "Performance", "Motion", "Sync",
-            "Direction", "Reverse", "Angle", "Adjustment", "Esports", "Mode", "On",
-            "Off", "Overclocked", "Debounce", "Sleep", "Minute", "Firmware", "Version",
-            "Receiver", "Driver", "Factory", "Pairing", "Go", "Lock", "Unlock",
-            "Volume", "Mute", "Play", "Pause", "Previous", "Next", "Brightness",
-            "Calculator", "Computer", "Open", "Homepage", "Mail", "Refresh", "Switch",
-            "Application", "Copy", "Cut", "Paste", "Effect", "Speed", "Color", "Rename",
-            "Connect", "Connected", "HID", "Device", "Selected", "Keystrokes", "Second",
-            "Save", "Rate", "Ripple", "Control", "Snap", "Succeed", "Click", "Properties",
-            "Status", "Top", "Move", "Bottom", "Ghz", "GHz", "Link", "Charging", "Pairing"
+            "home", "key", "pointer", "macro", "function", "system", "english",
+            "dark", "light", "theme", "config", "list", "usb", "link", "fully",
+            "charged", "copyright", "reset", "export", "import", "mouse", "settings",
+            "customize", "buttons", "click", "forward", "backward", "scroll", "up",
+            "down", "left", "right", "basic", "sensitivity", "multimedia", "lighting",
+            "switch", "keyboard", "combination", "gaming", "enhancement", "disable",
+            "number", "dpi", "levels", "report", "rate", "hz", "editor", "name",
+            "create", "event", "index", "value", "insert", "delete", "start", "stop",
+            "rec", "record", "time", "delay", "uniform", "loops", "loop", "until",
+            "release", "any", "press", "again", "count", "lift", "off", "distance",
+            "low", "medium", "high", "sensor", "performance", "motion", "sync",
+            "direction", "reverse", "angle", "adjustment", "esports", "mode", "on",
+            "off", "overclocked", "debounce", "sleep", "minute", "firmware", "version",
+            "receiver", "driver", "factory", "pairing", "go", "lock", "unlock",
+            "volume", "mute", "play", "pause", "previous", "next", "brightness",
+            "calculator", "computer", "open", "homepage", "mail", "refresh", "switch",
+            "application", "copy", "cut", "paste", "effect", "speed", "color", "rename",
+            "connect", "connected", "hid", "device", "selected", "keystrokes", "second",
+            "save", "rate", "ripple", "control", "snap", "succeed", "click", "properties",
+            "status", "top", "move", "bottom", "charging", "pairing", "power", "battery",
+            "wireless", "bluetooth", "profile", "macro", "keybind", "shortcut", "hotkey"
         ]
     },
     
@@ -62,15 +81,16 @@
         "ISSUES": "https://github.com/Xanixsl/Russifier-Drk-WEB/issues",
         "LANG_BASE": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/lang/",
         "STYLES": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/src/style.css",
-        "DEBUG_HTML": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/src/debug.html",
-        "DEBUG_STYLES": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/src/debug.css",
-        "CONFIG_HTML": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/src/config.html"
+        "CONSTANTS": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/src/const.json"
     },
     
     "CONFIG": {
         "ENABLED_KEY": "drk_enabled_v2",
         "DEBUG_KEY": "drk_debug_mode",
-        "CACHE_KEY": "drk_lang_cache",
+        "LANG_CACHE_KEY": "drk_lang_cache",
+        "CONST_CACHE_KEY": "drk_const_cache",
+        "META_CACHE_KEY": "drk_meta_cache",
+        "USER_CONFIG_KEY": "drk_user_config",
         "LAST_CHECK_KEY": "drk_last_update_check",
         "CACHE_TTL": 604800000,
         "AUTO_CHECK_UPDATES": true,
@@ -79,19 +99,20 @@
         "ENABLE_FIXES": true,
         "ENABLE_DEV_TOOLS": false,
         "ENABLE_LANGUAGE_DETECTOR": true,
-        "MIN_TEXT_LENGTH": 2
+        "MIN_TEXT_LENGTH": 2,
+        "TRANSLATION_TIMEOUT": 10000,
+        "RESOURCE_TIMEOUT": 10000
     },
-    
-    "DEBUG_HASH": "#drk_debug_eHJhbml4XzIwMjY=",
-    "VERSION": "2.1.3",
-    "AUTHOR": "Xanix",
     
     "SPECIAL_CASES": {
         "TEXT_CLEANUP": {
             "removeExtraSpaces": true,
             "normalizeQuotes": true,
-            "trimWhitespace": true
+            "trimWhitespace": true,
+            "preserveTechnicalPatterns": true,
+            "cleanPunctuation": true
         },
+        
         "PROBLEMATIC_PATTERNS": [
             "2.4GhzLink",
             "USBLink",
@@ -101,7 +122,109 @@
             "Key2",
             "Key3",
             "Key4",
-            "Key5"
+            "Key5",
+            "125HZ",
+            "500HZ",
+            "1000HZ",
+            "2000HZ",
+            "4000HZ",
+            "8000HZ",
+            "1Minute",
+            "5Minute",
+            "10Minute",
+            "15Minute",
+            "20Minute",
+            "25Minute",
+            "30Minute",
+            "35Minute",
+            "40Minute",
+            "DPI+",
+            "DPI-",
+            "Volume+",
+            "Volume-",
+            "Brightness+",
+            "Brightness-"
+        ],
+        
+        "TECHNICAL_PATTERNS": [
+            "^\\d+\\.\\d+[A-Za-z]+",
+            "^\\d+[A-Za-z]+",
+            "^[A-Z]+\\d+$",
+            "^\\d+Hz$",
+            "^\\d+HZ$",
+            "^\\d+\\.\\d+GHz$"
+        ],
+        
+        "SKIP_TAGS": ["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "INPUT", "CODE", "PRE"],
+        
+        "TRANSLATE_ATTRIBUTES": ["title", "placeholder", "aria-label", "alt", "value"]
+    },
+    
+    "DICTIONARY_META": {
+        "DEFAULT_VERSION": "2.0.0",
+        "MIN_ENTRIES": 50,
+        "UPDATE_CHECK_INTERVAL": 300000,
+        "VALIDATION_RULES": {
+            "maxKeyLength": 200,
+            "maxValueLength": 500,
+            "allowEmptyValues": true,
+            "allowDuplicates": false
+        }
+    },
+    
+    "DEBUG_SETTINGS": {
+        "ENABLE_CONSOLE_COMMANDS": true,
+        "SHOW_NOTIFICATIONS": true,
+        "LOG_LEVELS": ["error", "warn", "info", "debug"],
+        "CONSOLE_STYLES": {
+            "SUCCESS": "#4CAF50",
+            "INFO": "#2196F3",
+            "WARNING": "#FF9800",
+            "ERROR": "#f44336",
+            "DEBUG": "#9C27B0",
+            "NEUTRAL": "#795548"
+        },
+        "NOTIFICATION_DURATION": 3000
+    },
+    
+    "PERFORMANCE": {
+        "OBSERVER_THROTTLE": 100,
+        "BATCH_TRANSLATE_SIZE": 50,
+        "MAX_TEXT_LENGTH": 1000,
+        "CACHE_WARMUP": true,
+        "LAZY_LOAD": true
+    },
+    
+    "COMPATIBILITY": {
+        "BROWSERS": ["chrome", "firefox", "edge", "opera", "safari"],
+        "TAMPERMONKEY": true,
+        "VIOLENTMONKEY": true,
+        "GREASEMONKEY": true,
+        "USERSCRIPT_VERSION": "1.0"
+    },
+    
+    "COMMANDS": {
+        "HELP_TEXT": "Используйте drk.help() для списка команд",
+        "AVAILABLE_COMMANDS": [
+            "drk.stats() - Статистика перевода",
+            "drk.collect() - Собрать английские тексты",
+            "drk.export() - Экспорт в JSON",
+            "drk.untranslated() - Непереведенные тексты",
+            "drk.testLang() - Тест детектора языка",
+            "drk.config.show() - Показать настройки",
+            "drk.config.set(key, value) - Изменить настройку",
+            "drk.config.get(key) - Получить настройку",
+            "drk.config.reset() - Сбросить настройки",
+            "drk.config.toggle() - Вкл/выкл русификатор",
+            "drk.cache.info() - Информация о кэше",
+            "drk.cache.clear() - Очистить кэш",
+            "drk.cache.update() - Обновить кэш",
+            "drk.cache.recreate() - Пересоздать кэш",
+            "drk.refresh() - Обновить перевод",
+            "drk.enable() - Включить observer",
+            "drk.disable() - Выключить observer",
+            "drk.info() - Информация о скрипте",
+            "drk.help() - Справка по командам"
         ]
     }
 }
