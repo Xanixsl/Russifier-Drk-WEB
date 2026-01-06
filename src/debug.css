@@ -229,3 +229,385 @@
 .drk-dev-panel::-webkit-scrollbar-thumb:hover {
     background: #00cc00;
 }
+
+/* src/debug.css - дополняем стили */
+
+/* Иконки */
+.drk-icon {
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+/* Табы */
+.drk-dev-tabs {
+    display: flex;
+    border-bottom: 1px solid #333;
+    margin-bottom: 10px;
+}
+
+.drk-tab-btn {
+    flex: 1;
+    padding: 8px 5px;
+    background: transparent;
+    color: #aaa;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    transition: all 0.2s ease;
+}
+
+.drk-tab-btn:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.05);
+}
+
+.drk-tab-btn.active {
+    color: #00ff00;
+    border-bottom-color: #00ff00;
+    background: rgba(0,255,0,0.05);
+}
+
+/* Контент табов */
+.drk-dev-tab-content {
+    min-height: 200px;
+}
+
+.drk-tab-pane {
+    display: none;
+}
+
+.drk-tab-pane.active {
+    display: block;
+}
+
+/* Статистика */
+.drk-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.drk-stat-card {
+    background: #222;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+.drk-stat-label {
+    font-size: 10px;
+    color: #aaa;
+    margin-bottom: 5px;
+}
+
+.drk-stat-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00ff00;
+}
+
+.drk-stats-info {
+    background: #1a1a1a;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+.drk-stats-info div {
+    margin: 3px 0;
+}
+
+/* Поиск */
+.drk-search-box {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.drk-search-input {
+    width: 100%;
+    padding: 8px 30px 8px 10px;
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+}
+
+.drk-search-input:focus {
+    outline: none;
+    border-color: #00ff00;
+}
+
+.drk-search-clear {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.drk-search-clear:hover {
+    color: #fff;
+}
+
+/* Список */
+.drk-untranslated-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.drk-untranslated-item {
+    padding: 8px;
+    margin: 4px 0;
+    background: #222;
+    border-radius: 4px;
+    border-left: 3px solid #ff9800;
+    font-size: 11px;
+    word-break: break-word;
+}
+
+.drk-empty-state {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+.drk-list-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: #aaa;
+}
+
+/* Кнопки */
+.drk-small-btn {
+    padding: 3px 8px;
+    background: #333;
+    color: #ddd;
+    border: 1px solid #444;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+.drk-small-btn:hover {
+    background: #444;
+}
+
+.drk-dev-btn.primary {
+    background: #2d5a27;
+    border-color: #4CAF50;
+}
+
+.drk-dev-btn.primary:hover {
+    background: #3d6a37;
+}
+
+/* Конфиг */
+.drk-config-section {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #333;
+}
+
+.drk-config-section h4 {
+    margin: 0 0 10px 0;
+    color: #00ff00;
+    font-size: 12px;
+}
+
+.drk-config-item {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+}
+
+.drk-config-label {
+    margin-left: 8px;
+    font-size: 11px;
+}
+
+.drk-config-input {
+    width: 60px;
+    padding: 3px;
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 3px;
+    color: #fff;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+}
+
+.drk-config-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Консоль */
+.drk-console-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.drk-console-output {
+    background: #111;
+    border-radius: 4px;
+    padding: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.drk-console-entry {
+    margin: 2px 0;
+    padding: 3px;
+    border-radius: 2px;
+}
+
+.drk-console-entry.info {
+    color: #4CAF50;
+}
+
+.drk-console-entry.warn {
+    color: #FF9800;
+}
+
+.drk-console-entry.error {
+    color: #f44336;
+}
+
+.drk-console-entry.debug {
+    color: #2196F3;
+}
+
+.drk-console-time {
+    color: #666;
+    margin-right: 5px;
+}
+
+.drk-console-input {
+    display: flex;
+    gap: 5px;
+}
+
+.drk-console-cmd {
+    flex: 1;
+    padding: 6px;
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+}
+
+.drk-console-execute {
+    padding: 0 12px;
+    background: #2d5a27;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Футер */
+.drk-dev-footer {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #333;
+    font-size: 10px;
+}
+
+.drk-debug-hash {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    background: #111;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.drk-debug-hash code {
+    flex: 1;
+    margin: 0 5px;
+    font-family: 'Courier New', monospace;
+    color: #00ff00;
+    font-size: 9px;
+    word-break: break-all;
+}
+
+.drk-copy-btn {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 10px;
+    padding: 2px 5px;
+}
+
+.drk-copy-btn:hover {
+    color: #fff;
+}
+
+.drk-shortcuts {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    color: #666;
+}
+
+.drk-shortcut {
+    background: #222;
+    padding: 2px 5px;
+    border-radius: 3px;
+    border: 1px solid #444;
+}
+
+/* Дополнительные состояния */
+#drk-dev-panel[style*="display: block"] {
+    animation: drk-slide-in 0.3s ease;
+}
+
+@keyframes drk-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Клавиатурные подсказки */
+.drk-hotkey-hint {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: rgba(0,0,0,0.8);
+    color: #00ff00;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    z-index: 1000000;
+    border: 1px solid #00ff00;
+    display: none;
+}
