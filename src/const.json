@@ -107,10 +107,11 @@
     "SPECIAL_CASES": {
         "TEXT_CLEANUP": {
             "removeExtraSpaces": true,
-            "normalizeQuotes": true,
+            "normalizeQuotes": false,        // ВЫКЛЮЧЕНО - может добавлять пробелы
             "trimWhitespace": true,
             "preserveTechnicalPatterns": true,
-            "cleanPunctuation": true
+            "cleanPunctuation": false,       // ВАЖНО: ВЫКЛЮЧЕНО! Это добавляло пробелы после точек
+            "preserveNumbersWithDots": true   // НОВОЕ: сохранять числа с точками
         },
         
         "PROBLEMATIC_PATTERNS": [
@@ -147,12 +148,18 @@
         ],
         
         "TECHNICAL_PATTERNS": [
-            "^\\d+\\.\\d+[A-Za-z]+",
-            "^\\d+[A-Za-z]+",
-            "^[A-Z]+\\d+$",
-            "^\\d+Hz$",
-            "^\\d+HZ$",
-            "^\\d+\\.\\d+GHz$"
+            "^\d+\.\d+GhzLink$",     // ТОЛЬКО точное совпадение с GhzLink
+            "^\d+\.\d+GHz$",         // Частоты в GHz
+            "^\d+Hz$",              // Частоты в Hz
+            "^\d+HZ$",              // Частоты в HZ
+            "^[A-Z]+\\d+$",         // Технические обозначения типа USB2
+            "^Key\\d+$"             // Кнопки Key1, Key2 и т.д.
+        ],
+        
+        "PRESERVE_PATTERNS": [      // НОВЫЙ РАЗДЕЛ: паттерны которые НЕЛЬЗЯ изменять
+            "\d+\.\d+[A-Za-z]",     // Сохранять числа с точками и буквами
+            "[A-Za-z]+\\d+\\.\\d+", // Буквы-числа-точка-числа
+            "\\.(?=\\S)"            // Точка перед не-пробелом (не добавлять пробел)
         ],
         
         "SKIP_TAGS": ["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "INPUT", "CODE", "PRE"],
