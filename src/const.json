@@ -7,12 +7,12 @@
         "updated": "2026-01-07",
         "website": "https://github.com/Xanixsl/Russifier-Drk-WEB"
     },
-    
+
     "VERSION": "2.1.5",
     "AUTHOR": "Xanix",
     "LANG_FILE": "ru.json",
     "DEBUG_HASH": "#drk_debug_eHJhbml4XzIwMjY=",
-    
+
     "CACHE_KEYS": {
         "ENABLED_KEY": "drk_enabled_v2",
         "DEBUG_KEY": "drk_debug_mode",
@@ -22,11 +22,11 @@
         "USER_CONFIG_KEY": "drk_user_config",
         "LAST_CHECK_KEY": "drk_last_update_check"
     },
-    
+
     "LANGUAGE_PATTERNS": {
         "CYRILLIC": "[\u0400-\u04FF\u0500-\u052F\u2DE0-\u2DFF\uA640-\uA69F]",
         "LATIN": "^[A-Za-z0-9\\s\\.,!?@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?`~]+$",
-        
+
         "RUSSIAN_KEYWORDS": [
             "макрос", "редактор", "имя", "пользовательский", "создать",
             "список", "событий", "индекс", "событие", "значение", "вставить",
@@ -49,7 +49,7 @@
             "ггц", "гц", "2.4", "донгл", "приемник", "зарядка", "usb", "dpi",
             "сенсор", "курсор", "мышь", "мыши", "перемещение", "скролл"
         ],
-        
+
         "ENGLISH_KEYWORDS": [
             "home", "key", "pointer", "macro", "function", "system", "english",
             "dark", "light", "theme", "config", "list", "usb", "link", "fully",
@@ -74,7 +74,7 @@
             "wireless", "bluetooth", "profile", "macro", "keybind", "shortcut", "hotkey"
         ]
     },
-    
+
     "URLS": {
         "GITHUB_REPO": "https://github.com/Xanixsl/Russifier-Drk-WEB",
         "DISCUSSIONS": "https://github.com/Xanixsl/Russifier-Drk-WEB/discussions",
@@ -83,7 +83,7 @@
         "STYLES": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/src/style.css",
         "CONSTANTS": "https://raw.githubusercontent.com/Xanixsl/Russifier-Drk-WEB/refs/heads/main/src/const.json"
     },
-    
+
     "CONFIG": {
         "ENABLED_KEY": "drk_enabled_v2",
         "DEBUG_KEY": "drk_debug_mode",
@@ -103,17 +103,16 @@
         "TRANSLATION_TIMEOUT": 10000,
         "RESOURCE_TIMEOUT": 10000
     },
-    
+
     "SPECIAL_CASES": {
         "TEXT_CLEANUP": {
             "removeExtraSpaces": true,
-            "normalizeQuotes": false,   
+            "normalizeQuotes": false,
             "trimWhitespace": true,
             "preserveTechnicalPatterns": true,
-            "cleanPunctuation": false, 
-            "preserveNumbersWithDots": true 
+            "cleanPunctuation": false,
+            "preserveNumbersWithDots": true
         },
-        
         "PROBLEMATIC_PATTERNS": [
             "2.4GhzLink",
             "USBLink",
@@ -146,27 +145,23 @@
             "Brightness+",
             "Brightness-"
         ],
-        
         "TECHNICAL_PATTERNS": [
-            "^\d+\.\d+GhzLink$",  
-            "^\d+\.\d+GHz$",      
-            "^\d+Hz$",            
-            "^\d+HZ$",             
-            "^[A-Z]+\\d+$",        
-            "^Key\\d+$"    
+            "^\\d+\\.\\d+GhzLink$",
+            "^\\d+\\.\\d+GHz$",
+            "^\\d+Hz$",
+            "^\\d+HZ$",
+            "^[A-Z]+\\d+$",
+            "^Key\\d+$"
         ],
-        
-        "PRESERVE_PATTERNS": [    
-            "\d+\.\d+[A-Za-z]", 
+        "PRESERVE_PATTERNS": [
+            "\\d+\\.\\d+[A-Za-z]",
             "[A-Za-z]+\\d+\\.\\d+",
-            "\\.(?=\\S)" 
+            "\\.(?=\\S)"
         ],
-        
         "SKIP_TAGS": ["SCRIPT", "STYLE", "NOSCRIPT", "TEXTAREA", "INPUT", "CODE", "PRE"],
-        
         "TRANSLATE_ATTRIBUTES": ["title", "placeholder", "aria-label", "alt", "value"]
     },
-    
+
     "DICTIONARY_META": {
         "DEFAULT_VERSION": "2.0.0",
         "MIN_ENTRIES": 50,
@@ -178,7 +173,7 @@
             "allowDuplicates": false
         }
     },
-    
+
     "DEBUG_SETTINGS": {
         "ENABLE_CONSOLE_COMMANDS": true,
         "SHOW_NOTIFICATIONS": true,
@@ -193,7 +188,7 @@
         },
         "NOTIFICATION_DURATION": 3000
     },
-    
+
     "PERFORMANCE": {
         "OBSERVER_THROTTLE": 100,
         "BATCH_TRANSLATE_SIZE": 50,
@@ -201,7 +196,7 @@
         "CACHE_WARMUP": true,
         "LAZY_LOAD": true
     },
-    
+
     "COMPATIBILITY": {
         "BROWSERS": ["chrome", "firefox", "edge", "opera", "safari"],
         "TAMPERMONKEY": true,
@@ -209,7 +204,7 @@
         "GREASEMONKEY": true,
         "USERSCRIPT_VERSION": "1.0"
     },
-    
+
     "COMMANDS": {
         "HELP_TEXT": "Используйте drk.help() для списка команд",
         "AVAILABLE_COMMANDS": [
