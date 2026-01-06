@@ -201,7 +201,6 @@
   "配置05": "Конфиг 05",
   "Please Input Single Key": "Введите одну клавишу",
   "2.4GhzLink": "2.4 ГГц",
-  "GhzLink": "ГГц",
   "Charging": "Зарядка",
   "Left Click↓": "Левая КП Нажата",
   "Left Click↑": "Левая Кп Отпущ",
@@ -224,3 +223,4 @@
   "Click the pairing button below to pair.": "Нажмите кнопку сопряжения ниже, чтобы выполнить сопряжение.",
   "Pairing": "Сопряжение"
 }
+
