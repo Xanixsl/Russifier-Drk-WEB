@@ -28,7 +28,8 @@
             "поднять", "опустить", "двойной", "клик", "переключение", "скорости",
             "цвета", "переименовать", "подключение", "подключено", "устройство",
             "сохранить", "счётчик", "частота", "клавиат", "фильтр", "ряби",
-            "фиксация", "угла", "синхр", "движения", "успешно", "приёмник"
+            "фиксация", "угла", "синхр", "движения", "успешно", "приёмник",
+            "ггц", "гц", "2.4", "донгл", "приемник", "приёмник", "зарядка"
         ],
         
         "ENGLISH_KEYWORDS": [
@@ -38,7 +39,7 @@
             "Customize", "Buttons", "Click", "Forward", "Backward", "Scroll", "Up",
             "Down", "Left", "Right", "Basic", "Sensitivity", "Multimedia", "Lighting",
             "Switch", "Keyboard", "Combination", "Gaming", "Enhancement", "Disable",
-            "Number", "DPI", "Levels", "Report", "Rate", "HZ", "Editor", "Name",
+            "Number", "DPI", "Levels", "Report", "Rate", "HZ", "Hz", "Editor", "Name",
             "Create", "Event", "Index", "Value", "Insert", "Delete", "Start", "Stop",
             "REC", "Record", "Time", "Delay", "Uniform", "Loops", "Loop", "Until",
             "Release", "Any", "Press", "Again", "Count", "Lift", "Off", "Distance",
@@ -51,7 +52,7 @@
             "Application", "Copy", "Cut", "Paste", "Effect", "Speed", "Color", "Rename",
             "Connect", "Connected", "HID", "Device", "Selected", "Keystrokes", "Second",
             "Save", "Rate", "Ripple", "Control", "Snap", "Succeed", "Click", "Properties",
-            "Status", "Top", "Move", "Bottom"
+            "Status", "Top", "Move", "Bottom", "Ghz", "GHz", "Link", "Charging", "Pairing"
         ]
     },
     
@@ -83,5 +84,24 @@
     
     "DEBUG_HASH": "#drk_debug_eHJhbml4XzIwMjY=",
     "VERSION": "2.1.3",
-    "AUTHOR": "Xanix"
+    "AUTHOR": "Xanix",
+    
+    "SPECIAL_CASES": {
+        "TEXT_CLEANUP": {
+            "removeExtraSpaces": true,
+            "normalizeQuotes": true,
+            "trimWhitespace": true
+        },
+        "PROBLEMATIC_PATTERNS": [
+            "2.4GhzLink",
+            "USBLink",
+            "ScrollRight",
+            "ScrollLeft",
+            "Key1",
+            "Key2",
+            "Key3",
+            "Key4",
+            "Key5"
+        ]
+    }
 }
